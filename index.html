@@ -6,7 +6,7 @@
   <title>Field Branch Staff · Valikamam West · Divisional Secretariat</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    /* --- Your existing styles (unchanged) --- */
+    /* --- Your existing styles --- */
     * {
       margin: 0;
       padding: 0;
@@ -449,6 +449,83 @@
       color: #25D366;
     }
 
+    /* --- PDF Viewer Section --- */
+    .pdf-section {
+      margin-top: 0.8rem;
+      background: #f8fafc;
+      border-radius: 16px;
+      padding: 1rem;
+      border: 1px solid #e2e8ef;
+    }
+
+    .pdf-section h4 {
+      color: #0a2e23;
+      font-size: 1rem;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pdf-section h4 i {
+      color: #b33c1e;
+    }
+
+    .pdf-section .pdf-container {
+      width: 100%;
+      height: 400px;
+      border: 1px solid #dce5e0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .pdf-section .pdf-container embed,
+    .pdf-section .pdf-container iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .pdf-section .pdf-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .pdf-section .pdf-actions a {
+      padding: 0.5rem 1.2rem;
+      border-radius: 60px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+
+    .pdf-section .pdf-actions .pdf-open {
+      background: #b33c1e;
+      color: white;
+    }
+
+    .pdf-section .pdf-actions .pdf-open:hover {
+      background: #8f2e15;
+      transform: scale(1.02);
+    }
+
+    .pdf-section .pdf-actions .pdf-download {
+      background: #1a7a5a;
+      color: white;
+    }
+
+    .pdf-section .pdf-actions .pdf-download:hover {
+      background: #0f4d3a;
+      transform: scale(1.02);
+    }
+
     .chat-panel {
       background: #f8fafc;
       padding: 2rem 1.8rem 2rem;
@@ -685,6 +762,9 @@
       .qr-item .qr-info {
         flex-direction: column;
       }
+      .pdf-section .pdf-container {
+        height: 300px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -709,6 +789,9 @@
       .qr-item .qr-code-img img {
         width: 60px;
         height: 60px;
+      }
+      .pdf-section .pdf-container {
+        height: 250px;
       }
     }
   </style>
@@ -1168,6 +1251,26 @@
         </div>
       </div>
 
+      <!-- PDF Section -->
+      <div class="pdf-section">
+        <h4><i class="fas fa-file-pdf"></i> Field Officers List (PDF)</h4>
+        <div class="pdf-container">
+          <embed 
+            src="Untitled%20spreadsheet%20-%20Sheet1.pdf" 
+            type="application/pdf" 
+            width="100%" 
+            height="100%">
+        </div>
+        <div class="pdf-actions">
+          <a href="Untitled%20spreadsheet%20-%20Sheet1.pdf" target="_blank" class="pdf-open">
+            <i class="fas fa-external-link-alt"></i> Open PDF
+          </a>
+          <a href="Untitled%20spreadsheet%20-%20Sheet1.pdf" download class="pdf-download">
+            <i class="fas fa-download"></i> Download PDF
+          </a>
+        </div>
+      </div>
+
       <div style="margin-top: 1rem; font-size: 0.8rem; color: #3a5f4f; border-top: 1px dashed #c9d9d0; padding-top: 0.8rem;">
         <i class="fas fa-info-circle" style="color: #0b3b2c;"></i> Field Branch · Valikamam West
       </div>
@@ -1251,6 +1354,11 @@
     function getAIResponse(userMessage) {
       const msg = userMessage.toLowerCase().trim();
 
+      // PDF queries
+      if (msg.includes('pdf') || msg.includes('download') || msg.includes('officer list') || msg.includes('field officers list')) {
+        return "📄 Field Officers List PDF is available in the Staff Directory section.\n📎 You can view it online or download it using the buttons below the PDF viewer.\n📋 Contains all 20 Field Officers with their details.";
+      }
+
       // QR Code queries
       if (msg.includes('qr') || msg.includes('qrcode') || msg.includes('scan')) {
         return "📱 QR Codes available in the Reach Us section:\n🗺️ Google Maps QR - Scan to open location\n💬 WhatsApp QR - Scan to chat on WhatsApp\n📍 Valikamam West Divisional Secretariat - Chankanai, Jaffna.";
@@ -1318,7 +1426,7 @@
       }
 
       if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey')) {
-        return "Hello! I'm the AI Contact assistant for the Field Branch Staff. Ask me about:\n• Field Officers (by name in English, Tamil, or Sinhala)\n• Designations in Tamil and Sinhala\n• Acting/alternate contacts\n• Office address, map, QR codes, & contact details";
+        return "Hello! I'm the AI Contact assistant for the Field Branch Staff. Ask me about:\n• Field Officers (by name in English, Tamil, or Sinhala)\n• Designations in Tamil and Sinhala\n• Acting/alternate contacts\n• Office address, map, QR codes, PDF, & contact details";
       }
 
       if (msg.includes('hours') || msg.includes('timing') || msg.includes('open') || msg.includes('closed')) {
@@ -1329,7 +1437,7 @@
         return "You're welcome! Feel free to ask if you need any other information. 🇱🇰";
       }
 
-      return "I'm your Contact assistant. You can ask me about:\n• Field Officers (by name in English/Tamil/Sinhala)\n• Designations in all 3 languages\n• Acting/alternate contacts\n• Office address, map, QR codes, & contacts\nJust type your question!";
+      return "I'm your Contact assistant. You can ask me about:\n• Field Officers (by name in English/Tamil/Sinhala)\n• Designations in all 3 languages\n• Acting/alternate contacts\n• Office address, map, QR codes, PDF, & contacts\nJust type your question!";
     }
 
     function addMessage(text, sender) {
