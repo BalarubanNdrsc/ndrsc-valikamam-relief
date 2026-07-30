@@ -1119,34 +1119,78 @@ Development Officer
 
     // Full Field Officers data with 3-language names, designations and Acting info
     const fieldOfficers = [
-      { name: "Ambiga Vijayakumar", nameTa: "அம்பிகா விஜயகுமார்", nameSi: "අම්බිගා විජයකුමාර්", designation: "Chief Management Service Officer (Field)", designationTa: "பிரதம முகாமைத்துவ சேவை உத்தியோகத்தர் (வெளிநிலை)", designationSi: "ප්‍රධාන කළමනාකරණ සේවා නිලධාරී (ක්ෂේත්‍ර)", phone: "077 403 3074", acting: "077 225 1495", actingName: "N. Piratheepan" },
-      { name: "Rokesan Milasini", nameTa: "ரோகேசன் மிலாசினி", nameSi: "රොකෙසන් මිලාසිනි", designation: "Cultural Officer", designationTa: "கலாசார உத்தியோகத்தர்", designationSi: "සංස්කෘතික නිලධාරී", phone: "076 846 4321", acting: "077 789 5941", actingName: "V. Sarmila" },
-      { name: "Parakiramasingam Satheesvaran", nameTa: "பராகிரமசிங்கம் சதீஸ்வரன்", nameSi: "පරාක්රමසිංහම් සත්යස්වරන්", designation: "Rural Development Officer", designationTa: "கிராம அபிவிருத்தி உத்தியோகத்தர்", designationSi: "ග්‍රාම සංවර්ධන නිලධාරී", phone: "077 788 5378", acting: "077 458 8183", actingName: "R. Rojinthan" },
-      { name: "Rajaratnam Rojinthan", nameTa: "இராசரத்தினம் ரோஜிந்தன்", nameSi: "රාජරත්නම් රොජින්තන්", designation: "Development Officer (Rural Development)", designationTa: "அபிவிருத்தி உத்தியோகத்தர் (கிராம அபிவிருத்தி)", designationSi: "සංවර්ධන නිලධාරී (ග්‍රාම සංවර්ධන)", phone: "077 458 8183", acting: "077 238 9775", actingName: "P. Lambotheran" },
-      { name: "Periyathamby Lambotheran", nameTa: "பெரியதம்பி லம்போதரன்", nameSi: "පෙරියතම්බි ලම්බෝතරන්", designation: "Development Officer (Rural Development)", designationTa: "அபிவிருத்தி உத்தியோகத்தர் (கிராம அபிவிருத்தி)", designationSi: "සංවර්ධන නිලධාරී (ග්‍රාම සංවර්ධන)", phone: "077 238 9775", acting: "077 458 8183", actingName: "R. Rojinthan" },
-      { name: "Vasanthan Sarmila", nameTa: "வசந்தன் சர்மிளா", nameSi: "වසන්තන් සර්මිලා", designation: "Development Officer (Culture Affairs)", designationTa: "அபிவிருத்தி உத்தியோகத்தர் (கலாசார அலுவல்கள்)", designationSi: "සංවර්ධන නිලධාරී (සංස්කෘතික කටයුතු)", phone: "077 789 5941", acting: "076 846 4321", actingName: "R. Milasini" },
-      { name: "Tharmarasa Piratheeswaran", nameTa: "தர்மராசா பிரதீஸ்வரன்", nameSi: "තර්මරාසා ප්රතීස්වරන්", designation: "Development Officer (Hindu Religious Culture)", designationTa: "அபிவிருத்தி உத்தியோகத்தர் (இந்து கலாசாரம்)", designationSi: "සංවර්ධන නිලධාරී (හින්දු ආගමික හා සංස්කෘතික)", phone: "077 356 2966", acting: "077 911 4819", actingName: "J. Anantharasa" },
-      { name: "Jeevitha Anantharasa", nameTa: "ஜீவிதா ஆனந்தராசா", nameSi: "ජීවිතා ආනන්දරාජා", designation: "Development Officer (Hindu Religious Culture)", designationTa: "அபிவிருத்தி உத்தியோகத்தர் (இந்து கலாசாரம்)", designationSi: "සංවර්ධන නිලධාරී (හින්දු ආගමික හා සංස්කෘතික)", phone: "077 911 4819", acting: "077 356 2966", actingName: "T. Piratheeswaran" },
-      { name: "Costa Mary Kalista", nameTa: "கோஸ்டா மேரி கலிஸ்டா", nameSi: "කොස්ටා මේරි කලිස්ටා", designation: "Development Officer (Christian Religious Affairs)", designationTa: "அபிவிருத்தி உத்தியோகத்தர் (கிறிஸ்தவ மத அலுவல்கள்)", designationSi: "සංවර්ධන නිලධාරී (ක්‍රිස්තියානි ආගමික කටයුතු)", phone: "077 820 9150", acting: "077 911 4819", actingName: "J. Anantharasa" },
-      { name: "Elankeeran Lalini", nameTa: "இளங்கீரன் லாலினி", nameSi: "ඉලංකීරන් ලාලිනි", designation: "Development Officer (National Disaster Relief Service)", designationTa: "அபிவிருத்தி உத்தியோகத்தர் (தேசிய அனர்த்த நிவாரண சேவை)", designationSi: "සංවර්ධන නිලධාරී (ජාතික ආපදා සහන සේවා)", phone: "076 683 7332", acting: "070 159 1083", actingName: "B. Balaroopan" },
-      { name: "Sivasamuganathan Anushan", nameTa: "சிவசன்முகநாதன் அனுசன்", nameSi: "සිවසන්මුගනාදන් අනුෂන්", designation: "Development Officer (Disaster)", designationTa: "அபிவிருத்தி உத்தியோகத்தர் (அனர்த்தம்)", designationSi: "සංවර්ධන නිලධාරී (ආපදා)", phone: "077 770 7464", acting: "070 159 1083", actingName: "B. Balaroopan" },
-      { name: "Balasubramaniyam Balaroopan", nameTa: "பாலசுப்ரமணியம் பாலரூபன்", nameSi: "බාලසුබ්රමනියම් බාලරූපන්", designation: "Development Officer (National Disaster Relief Service)", designationTa: "அபிவிருத்தி உத்தியோகத்தர் (தேசிய அனர்த்த நிவாரண சேவை)", designationSi: "සංවර්ධන නිලධාරී (ජාතික ආපදා සහන සේවා)", phone: "070 159 1083", acting: "077 770 7464", actingName: "S. Anushan" },
-      { name: "Rajan Kapilan", nameTa: "இராசன் கபிலன்", nameSi: "රාජන් කපිලන්", designation: "Development Officer (Foreign Employment)", designationTa: "அபிவிருத்தி உத்தியோகத்தர் (வெளிநாட்டு வேலைவாய்ப்பு)", designationSi: "සංවර්ධන නිලධාරී (විදේශ රැකියා)", phone: "077 271 8452", acting: "077 915 0580", actingName: "J. Nirangini" },
-      { name: "Jeyaruban Nirangini", nameTa: "ஜெயரூபன் நிறைஞ்சினி", nameSi: "ජෙයරූබන් නිරංජනි", designation: "Development Officer (Foreign Employment)", designationTa: "அபிவிருத்தி உத்தியோகத்தர் (வெளிநாட்டு வேலைவாய்ப்பு)", designationSi: "සංවර්ධන නිලධාරී (විදේශ රැකියා)", phone: "077 915 0580", acting: "077 672 6142", actingName: "K. Mugunthan" },
-      { name: "Sureshkaran Prahananthi", nameTa: "சுரேஸ்கரன் பிரஹானந்தி", nameSi: "සුරේස්කරන් ප්රහානන්දි", designation: "Development Officer (Foreign Employment)", designationTa: "அபிவிருத்தி உத்தியோகத்தர் (வெளிநாட்டு வேலைவாய்ப்பு)", designationSi: "සංවර්ධන නිලධාරී (විදේශ රැකියා)", phone: "077 627 9302", acting: "077 915 0580", actingName: "J. Nirangini" },
-      { name: "Kandhasamy Mugunthan", nameTa: "கந்தசாமி முகுந்தன்", nameSi: "කන්තසාමි මුගුන්තන්", designation: "Development Officer (Foreign Employment)", designationTa: "அபிவிருத்தி உத்தியோகத்தர் (வெளிநாட்டு வேலைவாய்ப்பு)", designationSi: "සංවර්ධන නිලධාරී (විදේශ රැකියා)", phone: "077 672 6142", acting: "077 271 8452", actingName: "R. Kapilan" },
-      { name: "Kandiah D. Nesakumar", nameTa: "கந்தையா டி. நேஸ்குமார்", nameSi: "කන්තියා ඩී. නේස්කුමාර්", designation: "Development Officer (Mediation Board)", designationTa: "அபிவிருத்தி உத்தியோகத்தர் (மத்தியஸ்த சபை)", designationSi: "සංවර්ධන නිලධාරී (මැදිහත් වීමේ මණ්ඩලය)", phone: "077 072 4122", acting: "077 189 2883", actingName: "L.L. Piruntha" },
-      { name: "Leon Leesan Piruntha", nameTa: "லியோன் லீசன் பிருந்தா", nameSi: "ලියොන් ලීසන් පිරුන්තා", designation: "Development Officer (National Integration)", designationTa: "அபிவிருத்தி உத்தியோகத்தர் (தேசிய ஒருமைப்பாடு)", designationSi: "සංවර්ධන නිලධාරී (ජාතික ඒකාබද්ධතාව)", phone: "077 189 2883", acting: "077 072 4122", actingName: "K.D. Nesakumar" },
-      { name: "Antones Jansan Niranjini", nameTa: "அன்டோன்ஸ் ஜான்சன் நிரஞ்சினி", nameSi: "ඇන්ටෝනිස් ජාන්සන් නිරංජනි", designation: "Development Officer (Community Correction)", designationTa: "அபிவிருத்தி உத்தியோகத்தர் (சமுதாய சீர்திருத்தம்)", designationSi: "සංවර්ධන නිලධාරී (ප්‍රජා පදනම් කරගත් ප්‍රතිසංස්කරණ)", phone: "077 666 0654", acting: "077 189 2883", actingName: "L.L. Piruntha" },
-      { name: "Rajkumar Kirushika", nameTa: "ராஜ்குமார் கிருஷிகா", nameSi: "රාජ්කුමාර් කිරුෂිකා", designation: "Development Officer (Ayurveda)", designationTa: "அபிவிருத்தி உத்தியோகத்தர் (ஆயுர்வேதம்)", designationSi: "සංවර්ධන නිලධාරී (ආයුර්වේද)", phone: "077 185 8307", acting: "077 666 0654", actingName: "A.J. Niranjini" }
+      
+    
+
+      {
+    name: "Mrs. Thuvaraka Nitharsan",
+    nameTa: "திருமதி. துவாரகா நிதர்சன்",
+    nameSi: "තුවාරකා නිතර්සන් මහත්මිය",
+    designation: "Development Officer (Land acquisition)",
+    designationTa: "அபிவிருத்தி உத்தியோகத்தர் (நிலம் கையகப்படுத்துதல்)",
+    designationSi: "සංවර්ධන නිලධාරී (ඉඩම් අත්පත් කර ගැනීම)",
+    phone: "077 563 2332",
+    acting: "076 531 6218",
+    actingName: "Sriranjith V"
+  },
+  {
+    name: "Miss. Nisha Nagendran",
+    nameTa: "செல்வி . நிஷா நாகேந்திரன்",
+    nameSi: "නිශා නාගේන්රන් ගමගනවිය",
+    designation: "Development Officer",
+    designationTa: "அபிவிருத்தி உத்தியோகத்தர்",
+    designationSi: "සංවර්ධන නිලධාරී",
+    phone: "077 039 5943",
+    acting: "077 698 1756",
+    actingName: "Sarmala A"
+  },
+  {
+    name: "Mrs. Sriranjith Viharshini",
+    nameTa: "திருமதி.ஸ்ரீரஞ்சித் விஹர்ஷினி",
+    nameSi: "ශ්‍රීරංචිත්ම විහර්ිනි මහත්මිය",
+    designation: "Land Use Planning Officer",
+    designationTa: "காணிப் பயனாட்டுத் திட்டமிடல் உத்தியோகத்தர்",
+    designationSi: "ඉඩම් පරීකරණ සැලසුම් නිලධාරී",
+    phone: "076 531 6218",
+    acting: "077 563 2332",
+    actingName: "Thuvaraka N"
+  },
+  {
+    name: "Miss. Laxshika Ethayarajan",
+    nameTa: "செல்வி. லக்சிகா இதயராஜன்",
+    nameSi: "ලක්ෂිකා ඉදයරාජන් ගමගනවිය",
+    designation: "Land Field Instructor",
+    designationTa: "காணி வெளிக்களப் போதனாசிரியர்",
+    designationSi: "ඉඩම් ක්ෂගෂේත්‍ර උපගේශය",
+    phone: "077 671 9582",
+    acting: "077 340 0668",
+    actingName: "Sivajini T"
+  },
+  {
+    name: "Mrs. Sivajini Thilakaranjan",
+    nameTa: "திருமதி. சிவாஜினி திலகரஞ்சன்",
+    nameSi: "ිවාජිනි තිලකරංජන් මහත්මිය",
+    designation: "Land Officer",
+    designationTa: "காணி உத்தியோகத்தர்",
+    designationSi: "ඉඩම් නිලධාරී",
+    phone: "077 340 0668",
+    acting: "077 671 9582",
+    actingName: "Laxshika E"
+  },
+  {
+    name: "Mrs. Sarmala Amidhayan",
+    nameTa: "திருமதி. சர்மலா அமிதாயன்",
+    nameSi: "ශර්මලා අිදායන් මහත්මිය",
+    designation: "Development Officer",
+    designationTa: "அபிவிருத்தி உத்தியோகத்தர்",
+    designationSi: "සංවර්ධන නිලධාරී",
+    phone: "077 698 1756",
+    acting: "077 039 5943",
+    actingName: "Nisha M"
+  }
  
  
-     ,{ name: "Thuvaraka Nitharsan", nameTa: "ச துவாரகா நிதர்சன்", nameSi: "තුවාරකා නිතර්සන් මහත්මිය ", designation: "Development Officer (Land acquisition)", designationTa: "அபிவிருத்தி உத்தியோகத்தர் (நிலம் கையகப்படுத்துதல்)", designationSi: "සංවර්ධන නිලධාරී (ඉඩම් අත්පත් කර ගැනීම)", phone: "077 563 2332", acting: "076 531 6218", actingName: "Sriranjith V" }, 
-      { name: "Kandhasamy Mugunthan", nameTa: "கந்தசாமி முகுந்தன்", nameSi: "කන්තසාමි මුගුන්තන්", designation: "Development Officer (Foreign Employment)", designationTa: "அபிவிருத்தி உத்தியோகத்தர் (வெளிநாட்டு வேலைவாய்ப்பு)", designationSi: "සංවර්ධන නිලධාරී (විදේශ රැකියා)", phone: "077 672 6142", acting: "077 271 8452", actingName: "R. Kapilan" },
-      { name: "Kandiah D. Nesakumar", nameTa: "கந்தையா டி. நேஸ்குமார்", nameSi: "කන්තියා ඩී. නේස්කුමාර්", designation: "Development Officer (Mediation Board)", designationTa: "அபிவிருத்தி உத்தியோகத்தர் (மத்தியஸ்த சபை)", designationSi: "සංවර්ධන නිලධාරී (මැදිහත් වීමේ මණ්ඩලය)", phone: "077 072 4122", acting: "077 189 2883", actingName: "L.L. Piruntha" },
-      { name: "Leon Leesan Piruntha", nameTa: "லியோன் லீசன் பிருந்தா", nameSi: "ලියොන් ලීසන් පිරුන්තා", designation: "Development Officer (National Integration)", designationTa: "அபிவிருத்தி உத்தியோகத்தர் (தேசிய ஒருமைப்பாடு)", designationSi: "සංවර්ධන නිලධාරී (ජාතික ඒකාබද්ධතාව)", phone: "077 189 2883", acting: "077 072 4122", actingName: "K.D. Nesakumar" },
-      { name: "Antones Jansan Niranjini", nameTa: "அன்டோன்ஸ் ஜான்சன் நிரஞ்சினி", nameSi: "ඇන්ටෝනිස් ජාන්සන් නිරංජනි", designation: "Development Officer (Community Correction)", designationTa: "அபிவிருத்தி உத்தியோகத்தர் (சமுதாய சீர்திருத்தம்)", designationSi: "සංවර්ධන නිලධාරී (ප්‍රජා පදනම් කරගත් ප්‍රතිසංස්කරණ)", phone: "077 666 0654", acting: "077 189 2883", actingName: "L.L. Piruntha" },
-      { name: "Rajkumar Kirushika", nameTa: "ராஜ்குமார் கிருஷிகா", nameSi: "රාජ්කුමාර් කිරුෂිකා", designation: "Development Officer (Ayurveda)", designationTa: "அபிவிருத்தி உத்தியோகத்தர் (ஆயுர்வேதம்)", designationSi: "සංවර්ධන නිලධාරී (ආයුර්වේද)", phone: "077 185 8307", acting: "077 666 0654", actingName: "A.J. Niranjini" }
+ 
    
     
     ];
