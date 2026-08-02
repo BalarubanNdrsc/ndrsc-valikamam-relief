@@ -1,0 +1,2173 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NDRSC - தேசிய அனர்த்த நிவாரண சேவைகள்</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans Tamil', 'Segoe UI', Tahoma, sans-serif;
+            background: #f0f4f8;
+            color: #1a2a3a;
+        }
+
+        .navbar-ndrsc {
+            background: #0a3d5c;
+            padding: 10px 0;
+            border-bottom: 4px solid #f5b342;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1050;
+        }
+        .navbar-ndrsc .navbar-brand {
+            font-weight: 700;
+            color: #fff;
+            font-size: 1.3rem;
+        }
+        .navbar-ndrsc .navbar-brand i { color: #f5b342; margin-right: 8px; }
+        .navbar-ndrsc .nav-link {
+            color: rgba(255,255,255,0.85);
+            font-weight: 500;
+            font-size: 0.85rem;
+            padding: 8px 14px;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+        .navbar-ndrsc .nav-link:hover { background: rgba(255,255,255,0.1); color: #fff; }
+        .navbar-ndrsc .nav-link i { margin-right: 6px; }
+        .navbar-ndrsc .nav-link.active { background: rgba(245,179,66,0.25); color: #f5b342; }
+
+        .hero-section {
+            background: linear-gradient(135deg, #0a3d5c 0%, #1a6a8a 100%);
+            color: #fff;
+            padding: 40px 0 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 60%;
+            height: 200%;
+            background: rgba(245,179,66,0.08);
+            transform: rotate(25deg);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero-section .hero-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-section .hero-title i { color: #f5b342; }
+        .hero-section .hero-sub {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-section .hero-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-section .hero-badges .badge {
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.75rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .hero-section .hero-badges .badge i { margin-right: 6px; color: #f5b342; }
+
+        /* ===== EMERGENCY CONTACTS ===== */
+        .emergency-section {
+            background: #fff;
+            padding: 20px 0;
+            border-bottom: 1px solid #e9edf2;
+        }
+        .emergency-section .section-label {
+            font-weight: 700;
+            color: #0a3d5c;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .emergency-section .section-label i { color: #e74c3c; font-size: 1.2rem; }
+        .emergency-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 14px;
+            align-items: center;
+        }
+        .emergency-grid .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #f8f9fa;
+            padding: 6px 14px 6px 10px;
+            border-radius: 40px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            border: 1px solid #e9edf2;
+            transition: 0.2s;
+            text-decoration: none;
+            color: #1a2a3a;
+        }
+        .emergency-grid .contact-item:hover {
+            background: #e9edf2;
+            transform: scale(1.02);
+        }
+        .emergency-grid .contact-item .icon-circle {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .emergency-grid .contact-item .icon-circle.red { background: #e74c3c; }
+        .emergency-grid .contact-item .icon-circle.blue { background: #0a3d5c; }
+        .emergency-grid .contact-item .icon-circle.green { background: #27ae60; }
+        .emergency-grid .contact-item .icon-circle.orange { background: #f39c12; }
+        .emergency-grid .contact-item .icon-circle.purple { background: #8e44ad; }
+        .emergency-grid .contact-item .icon-circle.teal { background: #1abc9c; }
+        .emergency-grid .contact-item .icon-circle.dark { background: #2c3e50; }
+        .emergency-grid .contact-item .icon-circle.pink { background: #e84393; }
+        .emergency-grid .contact-item .icon-circle.indigo { background: #3f51b5; }
+        .emergency-grid .contact-item .phone {
+            font-weight: 700;
+            color: #0a3d5c;
+            font-size: 0.75rem;
+            direction: ltr;
+            unicode-bidi: embed;
+        }
+        .emergency-grid .contact-item .divider { color: #b0c0d0; margin: 0 3px; }
+        .emergency-grid .contact-item .desc {
+            font-size: 0.65rem;
+            color: #6a7a8a;
+        }
+
+        /* ===== FIRE SAFETY SECTION ===== */
+        .fire-safety-section {
+            background: #fff;
+            padding: 25px 0;
+            border-bottom: 1px solid #e9edf2;
+        }
+        .fire-safety-section .fire-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        .fire-safety-section .fire-header h3 {
+            font-weight: 700;
+            color: #0a3d5c;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+        .fire-safety-section .fire-header h3 i { color: #f5b342; }
+        .fire-safety-section .fire-header .fire-badge {
+            background: #e74c3c;
+            color: #fff;
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.7rem;
+        }
+        .fire-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+        }
+        .fire-card {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 16px 18px;
+            border-left: 4px solid #e74c3c;
+            transition: 0.2s;
+            height: 100%;
+        }
+        .fire-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            transform: translateY(-2px);
+        }
+        .fire-card .fire-card-title {
+            font-weight: 700;
+            color: #c0392b;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .fire-card .fire-card-title i { font-size: 1.1rem; }
+        .fire-card ul {
+            padding-left: 16px;
+            margin: 0;
+            font-size: 0.8rem;
+            line-height: 1.8;
+        }
+        .fire-card ul li { margin-bottom: 2px; }
+        .fire-card .tip-icon { margin-right: 6px; color: #27ae60; }
+        .fire-card .danger-icon { margin-right: 6px; color: #e74c3c; }
+        .fire-card .warning-icon { margin-right: 6px; color: #f39c12; }
+        .fire-card .fire-icon { margin-right: 6px; color: #e74c3c; }
+        .fire-card .warning-box {
+            background: #fde8e8;
+            border-radius: 10px;
+            padding: 10px 14px;
+            margin-top: 10px;
+            font-size: 0.75rem;
+            border-left: 3px solid #e74c3c;
+        }
+        .fire-card .warning-box i { color: #e74c3c; margin-right: 6px; }
+        .fire-card .info-box {
+            background: #e8f0fe;
+            border-radius: 10px;
+            padding: 10px 14px;
+            margin-top: 10px;
+            font-size: 0.75rem;
+            border-left: 3px solid #2980b9;
+        }
+        .fire-card .info-box i { color: #2980b9; margin-right: 6px; }
+        .fire-card .pass-box {
+            background: #fef9e7;
+            border-radius: 10px;
+            padding: 10px 14px;
+            margin-top: 10px;
+            font-size: 0.75rem;
+            border-left: 3px solid #f1c40f;
+        }
+        .fire-card .pass-box i { color: #f1c40f; margin-right: 6px; }
+
+        /* PASS Method Table */
+        .pass-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .pass-item {
+            background: #fff;
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            border: 2px solid #e9edf2;
+            transition: 0.2s;
+        }
+        .pass-item:hover {
+            border-color: #e74c3c;
+            transform: scale(1.02);
+        }
+        .pass-item .pass-letter {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #e74c3c;
+            display: block;
+        }
+        .pass-item .pass-word {
+            font-weight: 700;
+            color: #0a3d5c;
+            font-size: 0.85rem;
+            display: block;
+        }
+        .pass-item .pass-desc {
+            font-size: 0.65rem;
+            color: #6a7a8a;
+        }
+
+        /* Fire Extinguisher Table */
+        .extinguisher-table {
+            width: 100%;
+            font-size: 0.75rem;
+            border-collapse: collapse;
+            margin-top: 8px;
+        }
+        .extinguisher-table th {
+            background: #0a3d5c;
+            color: #fff;
+            padding: 6px 10px;
+            text-align: left;
+            font-size: 0.65rem;
+        }
+        .extinguisher-table td {
+            padding: 6px 10px;
+            border-bottom: 1px solid #e9edf2;
+        }
+        .extinguisher-table tr:nth-child(even) { background: #f8f9fa; }
+        .extinguisher-table .class-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.6rem;
+        }
+        .extinguisher-table .class-badge.a { background: #27ae60; color: #fff; }
+        .extinguisher-table .class-badge.b { background: #f39c12; color: #fff; }
+        .extinguisher-table .class-badge.c { background: #e74c3c; color: #fff; }
+        .extinguisher-table .class-badge.e { background: #8e44ad; color: #fff; }
+
+        /* ===== WEATHER SAFETY SECTION ===== */
+        .weather-safety-section {
+            background: #f8f9fa;
+            padding: 25px 0;
+            border-bottom: 1px solid #e9edf2;
+        }
+        .weather-safety-section .weather-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        .weather-safety-section .weather-header h3 {
+            font-weight: 700;
+            color: #0a3d5c;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+        .weather-safety-section .weather-header h3 i { color: #f5b342; }
+        .weather-safety-section .weather-header .weather-badge {
+            background: #f5b342;
+            color: #0a3d5c;
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.7rem;
+        }
+        .weather-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .weather-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 16px 18px;
+            border-left: 4px solid #f5b342;
+            transition: 0.2s;
+            height: 100%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .weather-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+        .weather-card .weather-card-title {
+            font-weight: 700;
+            color: #0a3d5c;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .weather-card .weather-card-title .rain-icon { color: #2980b9; }
+        .weather-card .weather-card-title .flood-icon { color: #e67e22; }
+        .weather-card ul {
+            padding-left: 16px;
+            margin: 0;
+            font-size: 0.8rem;
+            line-height: 1.8;
+        }
+        .weather-card ul li { margin-bottom: 2px; }
+        .weather-card .tip-icon { margin-right: 6px; color: #27ae60; }
+        .weather-card .danger-icon { margin-right: 6px; color: #e74c3c; }
+        .weather-card .warning-icon { margin-right: 6px; color: #f39c12; }
+        .weather-card .warning-box {
+            background: #fde8e8;
+            border-radius: 10px;
+            padding: 10px 14px;
+            margin-top: 10px;
+            font-size: 0.75rem;
+            border-left: 3px solid #e74c3c;
+        }
+        .weather-card .warning-box i { color: #e74c3c; margin-right: 6px; }
+
+        /* ===== LIGHTNING SAFETY SECTION ===== */
+        .lightning-section {
+            background: #fff;
+            padding: 25px 0;
+            border-bottom: 1px solid #e9edf2;
+        }
+        .lightning-section .lightning-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        .lightning-section .lightning-header h3 {
+            font-weight: 700;
+            color: #0a3d5c;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+        .lightning-section .lightning-header h3 i { color: #f5b342; }
+        .lightning-section .lightning-header .lightning-badge {
+            background: #f5b342;
+            color: #0a3d5c;
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.7rem;
+        }
+        .lightning-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .lightning-card {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 16px 18px;
+            border-left: 4px solid #f5b342;
+            transition: 0.2s;
+            height: 100%;
+        }
+        .lightning-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            transform: translateY(-2px);
+        }
+        .lightning-card .lightning-card-title {
+            font-weight: 700;
+            color: #0a3d5c;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .lightning-card .lightning-card-title i { font-size: 1.1rem; }
+        .lightning-card .lightning-card-title .indoor-icon { color: #2980b9; }
+        .lightning-card .lightning-card-title .outdoor-icon { color: #e67e22; }
+        .lightning-card ul {
+            padding-left: 16px;
+            margin: 0;
+            font-size: 0.8rem;
+            line-height: 1.8;
+        }
+        .lightning-card ul li { margin-bottom: 2px; }
+        .lightning-card .tip-icon { margin-right: 6px; color: #27ae60; }
+        .lightning-card .danger-icon { margin-right: 6px; color: #e74c3c; }
+        .lightning-card .safe-icon { margin-right: 6px; color: #27ae60; }
+        .lightning-card .warning-box {
+            background: #fde8e8;
+            border-radius: 10px;
+            padding: 10px 14px;
+            margin-top: 10px;
+            font-size: 0.75rem;
+            border-left: 3px solid #e74c3c;
+        }
+        .lightning-card .warning-box i { color: #e74c3c; margin-right: 6px; }
+
+        /* ===== SOP MANUAL SECTION ===== */
+        .sop-section {
+            background: #f8f9fa;
+            padding: 25px 0;
+            border-bottom: 1px solid #e9edf2;
+        }
+        .sop-section .sop-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        .sop-section .sop-header h3 {
+            font-weight: 700;
+            color: #0a3d5c;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+        .sop-section .sop-header h3 i { color: #f5b342; }
+        .sop-section .sop-header .sop-badge {
+            background: #f5b342;
+            color: #0a3d5c;
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.7rem;
+        }
+        .sop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .sop-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 16px 18px;
+            border-left: 4px solid #f5b342;
+            transition: 0.2s;
+            height: 100%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .sop-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            transform: translateY(-2px);
+        }
+        .sop-card .sop-card-title {
+            font-weight: 700;
+            color: #0a3d5c;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+        .sop-card .sop-card-title i { color: #f5b342; font-size: 1rem; }
+        .sop-card .sop-card-sub {
+            font-size: 0.7rem;
+            color: #e67e22;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .sop-card ul {
+            padding-left: 16px;
+            margin: 6px 0 0;
+            font-size: 0.78rem;
+            line-height: 1.7;
+        }
+        .sop-card ul li { margin-bottom: 2px; }
+
+        /* ===== CHAT ===== */
+        .chat-wrapper { padding: 25px 0 40px; }
+        .chat-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px -12px rgba(0,0,0,0.2);
+            overflow: hidden;
+            border: 1px solid #e9edf2;
+        }
+        .chat-header {
+            background: linear-gradient(135deg, #0a3d5c, #1a6a8a);
+            color: #fff;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 4px solid #f5b342;
+            flex-wrap: wrap;
+        }
+        .chat-header .logo-icon {
+            font-size: 1.4rem;
+            background: #f5b342;
+            color: #0a3d5c;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .chat-header .header-text h4 {
+            font-weight: 700;
+            margin: 0;
+            font-size: 0.95rem;
+        }
+        .chat-header .header-text small {
+            display: block;
+            opacity: 0.85;
+            font-size: 0.6rem;
+            font-weight: 300;
+        }
+        .badge-dual {
+            background: #27ae60;
+            color: #fff;
+            font-weight: 700;
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-size: 0.55rem;
+            margin-left: auto;
+            white-space: nowrap;
+        }
+        .badge-dual i { margin-right: 3px; }
+
+        .mode-toggle {
+            background: #f0f4f8;
+            padding: 6px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid #dce3eb;
+            flex-wrap: wrap;
+        }
+        .mode-toggle .mode-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #1a2a3a;
+        }
+        .mode-toggle .btn-group .btn {
+            border-radius: 40px;
+            padding: 3px 12px;
+            font-size: 0.6rem;
+            font-weight: 600;
+            font-family: 'Noto Sans Tamil', sans-serif;
+            border: 2px solid #dce3eb;
+            transition: 0.2s;
+        }
+        .mode-toggle .btn-group .btn.active {
+            background: #0a3d5c;
+            color: #fff;
+            border-color: #0a3d5c;
+        }
+        .mode-toggle .btn-group .btn:not(.active):hover { background: #dce3eb; }
+        .active-mode-indicator {
+            font-size: 0.55rem;
+            background: #e3ecf5;
+            padding: 2px 10px;
+            border-radius: 20px;
+            color: #1a2a3a;
+        }
+
+        .chat-messages {
+            background: #f0f4f8;
+            padding: 14px 18px;
+            height: 400px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .chat-messages::-webkit-scrollbar { width: 4px; }
+        .chat-messages::-webkit-scrollbar-track { background: #dce3eb; border-radius: 10px; }
+        .chat-messages::-webkit-scrollbar-thumb { background: #1a6a8a; border-radius: 10px; }
+
+        .message {
+            max-width: 88%;
+            padding: 10px 14px;
+            border-radius: 18px;
+            line-height: 1.6;
+            font-size: 0.82rem;
+            animation: fadeIn 0.3s ease;
+            word-wrap: break-word;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+            font-family: 'Noto Sans Tamil', 'Segoe UI', sans-serif;
+        }
+        .message.user {
+            align-self: flex-end;
+            background: #0a3d5c;
+            color: #fff;
+            border-bottom-right-radius: 4px;
+        }
+        .message.bot {
+            align-self: flex-start;
+            background: #ffffff;
+            color: #1a2a3a;
+            border-bottom-left-radius: 4px;
+            border-left: 4px solid #f5b342;
+        }
+        .message.bot .bot-label {
+            font-size: 0.55rem;
+            font-weight: 700;
+            color: #1a6a8a;
+            display: block;
+            margin-bottom: 3px;
+        }
+        .message.bot .bot-label .guideline-tag {
+            background: #e3ecf5;
+            padding: 1px 8px;
+            border-radius: 12px;
+            font-size: 0.45rem;
+            margin-left: 4px;
+            font-weight: 400;
+        }
+        .message.bot .bot-label .guideline-tag.g09 { background: #e8f8f0; color: #27ae60; }
+        .message.bot .bot-label .guideline-tag.g11 { background: #fde8e8; color: #c0392b; }
+        .message.bot .bot-label .guideline-tag.fire { background: #fde8e8; color: #e74c3c; }
+        .message.bot .bot-label .guideline-tag.lightning { background: #fef9e7; color: #d4a017; }
+        .message.bot .bot-label .guideline-tag.weather { background: #e3f2fd; color: #1565c0; }
+        .message .reference {
+            font-size: 0.45rem;
+            color: #6a7a8a;
+            margin-top: 4px;
+            padding-top: 4px;
+            border-top: 1px dashed #dde4ec;
+            display: block;
+        }
+        .timestamp {
+            font-size: 0.45rem;
+            opacity: 0.5;
+            margin-top: 3px;
+            display: block;
+            text-align: right;
+        }
+
+        .doc-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 8px 16px 12px 16px;
+            background: #f0f4f8;
+            border-top: 1px solid #dce3eb;
+        }
+        .doc-links .doc-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            align-items: center;
+            width: 100%;
+        }
+        .doc-links .doc-group-label {
+            font-size: 0.55rem;
+            font-weight: 700;
+            color: #0a3d5c;
+            min-width: 70px;
+        }
+        .doc-links .doc-badge {
+            background: #ffffff;
+            color: #0a3d5c;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.5rem;
+            border: 1px solid #dce3eb;
+            font-family: 'Noto Sans Tamil', sans-serif;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .doc-links .doc-badge:hover {
+            background: #dce3eb;
+            border-color: #1a6a8a;
+            transform: scale(1.03);
+        }
+        .doc-links .doc-badge .count {
+            background: #e3ecf5;
+            padding: 0px 6px;
+            border-radius: 20px;
+            font-size: 0.4rem;
+            color: #1a6a8a;
+        }
+
+        .suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            padding: 6px 16px 10px 16px;
+            background: #f0f4f8;
+            border-top: 1px solid #dce3eb;
+        }
+        .suggestions .badge {
+            background: #e3ecf5;
+            color: #0a3d5c;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.55rem;
+            border: 1px solid transparent;
+            font-family: 'Noto Sans Tamil', sans-serif;
+        }
+        .suggestions .badge:hover {
+            background: #c8d8e8;
+            border-color: #1a6a8a;
+            transform: scale(1.03);
+        }
+        .suggestions .badge .pg { font-size: 0.4rem; opacity: 0.6; margin-left: 3px; }
+        .suggestions .badge.g09 { border-left: 3px solid #27ae60; }
+        .suggestions .badge.g11 { border-left: 3px solid #c0392b; }
+        .suggestions .badge.link-badge {
+            background: #fff3e0;
+            border-left: 3px solid #f5b342;
+            color: #e65100;
+        }
+        .suggestions .badge.link-badge:hover { background: #ffe0b2; }
+        .suggestions .badge.link-badge i { margin-right: 3px; }
+        .suggestions .badge.sop-badge {
+            background: #e8f0fe;
+            border-left: 3px solid #0a3d5c;
+            color: #0a3d5c;
+        }
+        .suggestions .badge.sop-badge:hover { background: #d0dcec; }
+        .suggestions .badge.emergency-badge {
+            background: #fde8e8;
+            border-left: 3px solid #e74c3c;
+            color: #c0392b;
+        }
+        .suggestions .badge.emergency-badge:hover { background: #fccccc; }
+        .suggestions .badge.fire-badge {
+            background: #fde8e8;
+            border-left: 3px solid #e74c3c;
+            color: #c0392b;
+        }
+        .suggestions .badge.fire-badge:hover { background: #fccccc; }
+        .suggestions .badge.lightning-badge {
+            background: #fef9e7;
+            border-left: 3px solid #f1c40f;
+            color: #7d6608;
+        }
+        .suggestions .badge.lightning-badge:hover { background: #fdebd0; }
+        .suggestions .badge.weather-badge {
+            background: #e3f2fd;
+            border-left: 3px solid #1565c0;
+            color: #0d47a1;
+        }
+        .suggestions .badge.weather-badge:hover { background: #bbdefb; }
+
+        .chat-input {
+            background: #fff;
+            padding: 8px 16px 12px 16px;
+            border-top: 1px solid #dce3eb;
+        }
+        .input-group {
+            background: #f0f4f8;
+            border-radius: 60px;
+            padding: 2px 2px 2px 16px;
+            border: 1px solid #dce3eb;
+            transition: 0.2s;
+        }
+        .input-group:focus-within {
+            border-color: #0a3d5c;
+            box-shadow: 0 0 0 3px rgba(10,61,92,0.12);
+        }
+        .input-group input {
+            border: none;
+            background: transparent;
+            padding: 10px 6px;
+            font-size: 0.85rem;
+            outline: none;
+            flex: 1;
+            font-family: 'Noto Sans Tamil', 'Segoe UI', sans-serif;
+        }
+        .input-group input::placeholder {
+            color: #8a9aaa;
+            font-weight: 300;
+            font-size: 0.75rem;
+        }
+        .input-group button {
+            background: #0a3d5c;
+            border: none;
+            border-radius: 60px;
+            padding: 8px 18px;
+            font-weight: 600;
+            color: #fff;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-family: 'Noto Sans Tamil', sans-serif;
+            font-size: 0.75rem;
+        }
+        .input-group button:hover { background: #1a6a8a; transform: scale(1.01); }
+        .input-group button i { font-size: 0.9rem; }
+
+        .footer-note {
+            font-size: 0.5rem;
+            color: #7e8d9e;
+            text-align: center;
+            margin-top: 6px;
+        }
+        .footer-note a {
+            color: #0a3d5c;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .footer-note a:hover { text-decoration: underline; }
+
+        .typing-indicator {
+            display: none;
+            align-self: flex-start;
+            background: #ffffff;
+            padding: 8px 14px;
+            border-radius: 30px;
+            border-left: 4px solid #f5b342;
+        }
+        .typing-indicator span {
+            height: 7px;
+            width: 7px;
+            background: #8a9aaa;
+            display: inline-block;
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: bounce 1.4s infinite;
+        }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes bounce {
+            0%,60%,100% { transform: translateY(0); background: #b0c0d0; }
+            30% { transform: translateY(-4px); background: #1a6a8a; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .footer-ndrsc {
+            background: #0a2e3f;
+            color: rgba(255,255,255,0.7);
+            padding: 25px 0 15px;
+            border-top: 4px solid #f5b342;
+        }
+        .footer-ndrsc .footer-brand {
+            font-weight: 700;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+        .footer-ndrsc .footer-brand i { color: #f5b342; }
+        .footer-ndrsc a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+        .footer-ndrsc a:hover { color: #f5b342; }
+        .footer-ndrsc .footer-divider {
+            border-color: rgba(255,255,255,0.1);
+            margin: 15px 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section .hero-title { font-size: 1.5rem; }
+            .hero-section .hero-sub { font-size: 0.85rem; }
+            .emergency-grid .contact-item { font-size: 0.65rem; padding: 4px 10px 4px 6px; }
+            .emergency-grid .contact-item .icon-circle { width: 20px; height: 20px; font-size: 0.55rem; }
+            .emergency-grid .contact-item .phone { font-size: 0.65rem; }
+            .sop-grid { grid-template-columns: 1fr; }
+            .lightning-grid { grid-template-columns: 1fr; }
+            .weather-grid { grid-template-columns: 1fr; }
+            .fire-grid { grid-template-columns: 1fr; }
+            .chat-messages { height: 300px; padding: 10px 12px; }
+            .message { max-width: 94%; font-size: 0.75rem; padding: 8px 12px; }
+            .chat-header .header-text h4 { font-size: 0.8rem; }
+            .doc-links .doc-group-label { min-width: 50px; font-size: 0.5rem; }
+            .doc-links .doc-badge { font-size: 0.45rem; padding: 3px 8px; }
+            .suggestions .badge { font-size: 0.45rem; padding: 3px 8px; }
+            .input-group button span { display: none; }
+            .input-group button { padding: 6px 12px; }
+            .navbar-ndrsc .navbar-brand { font-size: 1rem; }
+            .sop-section .sop-header h3 { font-size: 1rem; }
+            .lightning-section .lightning-header h3 { font-size: 1rem; }
+            .weather-safety-section .weather-header h3 { font-size: 1rem; }
+            .fire-safety-section .fire-header h3 { font-size: 1rem; }
+            .pass-grid { grid-template-columns: repeat(2, 1fr); }
+            .extinguisher-table { font-size: 0.65rem; }
+            .extinguisher-table th, .extinguisher-table td { padding: 4px 6px; }
+        }
+        @media (max-width: 576px) {
+            .hero-section { padding: 25px 0 20px; }
+            .hero-section .hero-title { font-size: 1.2rem; }
+            .emergency-grid { gap: 4px 8px; }
+            .mode-toggle .btn-group .btn { font-size: 0.5rem; padding: 2px 8px; }
+            .mode-toggle .mode-label { font-size: 0.6rem; }
+            .badge-dual { font-size: 0.45rem; padding: 2px 8px; }
+            .sop-card { padding: 12px 14px; }
+            .sop-card .sop-card-title { font-size: 0.8rem; }
+            .sop-card ul { font-size: 0.7rem; }
+            .lightning-card { padding: 12px 14px; }
+            .lightning-card .lightning-card-title { font-size: 0.8rem; }
+            .lightning-card ul { font-size: 0.7rem; }
+            .weather-card { padding: 12px 14px; }
+            .weather-card .weather-card-title { font-size: 0.8rem; }
+            .weather-card ul { font-size: 0.7rem; }
+            .fire-card { padding: 12px 14px; }
+            .fire-card .fire-card-title { font-size: 0.8rem; }
+            .fire-card ul { font-size: 0.7rem; }
+            .pass-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+    NAVBAR
+    ============================================================ -->
+    <nav class="navbar navbar-expand-lg navbar-ndrsc">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-shield-fill-check"></i> NDRSC
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" style="color:#fff;font-size:1.2rem;">
+                <i class="bi bi-list"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#"><i class="bi bi-house-fill"></i> முகப்பு</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacts"><i class="bi bi-telephone-fill"></i> அவசர எண்கள்</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#fire"><i class="bi bi-fire"></i> தீ பாதுகாப்பு</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#weather"><i class="bi bi-cloud-rain-fill"></i> மழை/வெள்ளம்</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#lightning"><i class="bi bi-cloud-lightning-fill"></i> இடி-மின்னல்</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#sop"><i class="bi bi-book-fill"></i> SOP கையேடு</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#chat"><i class="bi bi-robot"></i> AI உதவி</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://ndrsc.gov.lk" target="_blank"><i class="bi bi-box-arrow-up-right"></i> NDRSC</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================================
+    HERO
+    ============================================================ -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="hero-title">
+                        <i class="bi bi-robot"></i> NDRSC AI உதவி மையம்
+                    </h1>
+                    <p class="hero-sub">
+                        அனர்த்த நிவாரண வழிகாட்டல்கள் 09/2026 மற்றும் 11/2026 — 100% முழுமையான உதவி<br/>
+                        <small style="opacity:0.8;">வேலைக் கையேடு (SOP) · தீ பாதுகாப்பு · மழை/வெள்ளம் · இடி-மின்னல் · அவசர எண்கள்</small>
+                    </p>
+                    <div class="hero-badges">
+                        <span class="badge"><i class="bi bi-file-pdf"></i> 54 பக்கங்கள்</span>
+                        <span class="badge"><i class="bi bi-check-circle-fill"></i> 100% கவரேஜ்</span>
+                        <span class="badge"><i class="bi bi-fire"></i> தீ பாதுகாப்பு</span>
+                        <span class="badge"><i class="bi bi-cloud-rain-fill"></i> மழை/வெள்ளம்</span>
+                        <span class="badge"><i class="bi bi-cloud-lightning-fill"></i> இடி-மின்னல்</span>
+                        <span class="badge"><i class="bi bi-telephone-fill"></i> 12+ அவசர எண்கள்</span>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+                    <a href="#chat" class="btn btn-warning btn-lg fw-bold px-4" style="border-radius:40px;">
+                        <i class="bi bi-chat-dots-fill"></i> உரையாட தொடங்கு
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    EMERGENCY CONTACTS
+    ============================================================ -->
+    <section class="emergency-section" id="contacts">
+        <div class="container">
+            <div class="section-label">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                <span>இலங்கையின் முழுமையான அவசர உதவி எண்கள்</span>
+                <span style="font-size:0.65rem;color:#6a7a8a;font-weight:400;margin-left:8px;">(தொடர்பு / Contact)</span>
+            </div>
+            <div class="emergency-grid">
+                <a href="tel:119" class="contact-item">
+                    <span class="icon-circle blue"><i class="bi bi-shield-fill"></i></span>
+                    119 <span class="divider">—</span> <span class="desc">பொலிஸ் அவசரப் பிரிவு</span>
+                </a>
+                <a href="tel:110" class="contact-item">
+                    <span class="icon-circle orange"><i class="bi bi-fire"></i></span>
+                    110 <span class="divider">—</span> <span class="desc">தீயணைப்பு மற்றும் மீட்புப் பிரிவு</span>
+                </a>
+                <a href="tel:113" class="contact-item">
+                    <span class="icon-circle dark"><i class="bi bi-shield-fill"></i></span>
+                    113 <span class="divider">—</span> <span class="desc">இலங்கை இராணுவ அவசர சேவை</span>
+                </a>
+                <a href="tel:105" class="contact-item">
+                    <span class="icon-circle dark"><i class="bi bi-anchor"></i></span>
+                    105 <span class="divider">—</span> <span class="desc">இலங்கை கடற்படை அவசர சேவை</span>
+                </a>
+                <a href="tel:118" class="contact-item">
+                    <span class="icon-circle purple"><i class="bi bi-building"></i></span>
+                    118 <span class="divider">—</span> <span class="desc">பாதுகாப்பு அமைச்சின் அவசர உதவி</span>
+                </a>
+                <a href="tel:117" class="contact-item">
+                    <span class="icon-circle red"><i class="bi bi-megaphone-fill"></i></span>
+                    117 <span class="divider">—</span> <span class="desc">அனர்த்த முகாமைத்துவ மையம்</span>
+                </a>
+                <a href="tel:1990" class="contact-item">
+                    <span class="icon-circle green"><i class="bi bi-heart-pulse-fill"></i></span>
+                    1990 <span class="divider">—</span> <span class="desc">சுவசெரிய இலவச ஆம்புலன்ஸ்</span>
+                </a>
+                <a href="tel:1987" class="contact-item">
+                    <span class="icon-circle indigo"><i class="bi bi-lightning-fill"></i></span>
+                    1987 <span class="divider">—</span> <span class="desc">இலங்கை மின்சார சபை (CEB)</span>
+                </a>
+                <a href="tel:1910" class="contact-item">
+                    <span class="icon-circle indigo"><i class="bi bi-lightning-charge-fill"></i></span>
+                    1910 <span class="divider">—</span> <span class="desc">லங்கா எலக்ட்ரிசிட்டி கம்பனி (LECO)</span>
+                </a>
+                <a href="tel:1926" class="contact-item">
+                    <span class="icon-circle pink"><i class="bi bi-heart-fill"></i></span>
+                    1926 <span class="divider">—</span> <span class="desc">தேசிய மனநல உதவி எண்</span>
+                </a>
+                <a href="tel:114" class="contact-item">
+                    <span class="icon-circle teal"><i class="bi bi-shield-lock-fill"></i></span>
+                    114 <span class="divider">—</span> <span class="desc">இராணுவ தேசிய பாதுகாப்பு / அனர்த்த செயல்பாடுகள்</span>
+                </a>
+                <a href="tel:0112691111" class="contact-item">
+                    <span class="icon-circle red"><i class="bi bi-hospital-fill"></i></span>
+                    011-2691111 <span class="divider">—</span> <span class="desc">கொழும்பு தேசிய மருத்துவமனை - விபத்துப் பிரிவு</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    FIRE SAFETY SECTION
+    ============================================================ -->
+    <section class="fire-safety-section" id="fire">
+        <div class="container">
+            <div class="fire-header">
+                <h3><i class="bi bi-fire"></i> 🔥 தீ விபத்து பாதுகாப்பு வழிமுறைகள்</h3>
+                <span class="fire-badge"><i class="bi bi-fire"></i> அவசர பாதுகாப்பு</span>
+            </div>
+            <div class="fire-grid">
+
+                <!-- 1. Immediate Steps -->
+                <div class="fire-card" style="border-left-color:#e74c3c;">
+                    <div class="fire-card-title">
+                        <i class="bi bi-clock-history" style="color:#e74c3c;"></i> 1. தீ விபத்து ஏற்பட்டால் உடனடியாக செய்ய வேண்டியவை
+                    </div>
+                    <ul>
+                        <li><span class="fire-icon">🔥</span> <b>அலாரம் எழுப்பவும்:</b> "தீ, தீ" என்று சத்தமாக கத்தி மற்றவர்களை எச்சரியுங்கள் அல்லது தீ எச்சரிக்கை மணியை (Fire Alarm) இயக்குங்கள்.</li>
+                        <li><span class="danger-icon">⛔</span> <b>உடனடியாக வெளியேறவும்:</b> லிஃப்ட் (Lift) பயன்படுத்தாமல், அவசர கால படிக்கட்டுகள் (Emergency Exit) வழியாக உடனடியாக கட்டிடத்தை விட்டு வெளியே வாருங்கள்.</li>
+                        <li><span class="tip-icon">✅</span> <b>புகை சூழ்ந்திருந்தால் குனிந்து செல்லவும்:</b> புகை மேல்நோக்கி எழும்பும் என்பதால், தரையோடு தரையாகக் குனிந்து அல்லது தவழ்ந்து (Crawl) வெளியேற வேண்டும்.</li>
+                        <li><span class="tip-icon">📞</span> <b>தீயணைப்புத் துறைக்கு அழையுங்கள்:</b> பாதுகாப்பான இடத்திற்கு வந்தவுடன் உடனடியாக <b>110</b> (தீயணைப்புத் துறை அவசர எண்) என்ற எண்ணிற்கு அழையுங்கள்.</li>
+                    </ul>
+                    <div class="warning-box">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                        <b>முக்கியம்:</b> தீ விபத்து ஏற்பட்டால் பதற்றமடைய வேண்டாம். அமைதியாகவும், விரைவாகவும் செயல்படுங்கள்.
+                    </div>
+                </div>
+
+                <!-- 2. Stop, Drop, and Roll -->
+                <div class="fire-card" style="border-left-color:#f39c12;">
+                    <div class="fire-card-title">
+                        <i class="bi bi-person-fill" style="color:#f39c12;"></i> 🛑 2. ஆடையில் தீப்பற்றினால் செய்ய வேண்டியவை (Stop, Drop, and Roll)
+                    </div>
+                    <ul>
+                        <li><span class="danger-icon">⛔</span> <b>ஓடக் கூடாது (Don't Run):</b> ஓடினால் தீ வேகமாகப் பரவும். எனவே உடனடியாக ஓடுவதை நிறுத்த வேண்டும்.</li>
+                        <li><span class="tip-icon">✅</span> <b>தரையில் படுக்கவும் (Drop):</b> உடனடியாக தரையில் படுத்து, கைகளால் முகத்தை மூடிக்கொள்ள வேண்டும்.</li>
+                        <li><span class="tip-icon">✅</span> <b>உருள வேண்டும் (Roll):</b> தீ அனையும் வரை தரையில் இடமும் வலமும் உருள வேண்டும்.</li>
+                    </ul>
+                    <div class="info-box" style="background:#fef9e7;border-left-color:#f39c12;">
+                        <i class="bi bi-lightbulb-fill" style="color:#f39c12;"></i>
+                        <b>நினைவில் கொள்ளுங்கள்:</b> "Stop, Drop, and Roll" - ஓடுவதை நிறுத்து, தரையில் படு, உருள்!
+                    </div>
+                </div>
+
+                <!-- 3. What NOT to Do -->
+                <div class="fire-card" style="border-left-color:#c0392b;">
+                    <div class="fire-card-title">
+                        <i class="bi bi-x-circle-fill" style="color:#c0392b;"></i> 🚫 3. செய்யக் கூடாதவை (What NOT to Do)
+                    </div>
+                    <ul>
+                        <li><span class="danger-icon">⛔</span> <b>லிஃப்ட் பயன்படுத்தக் கூடாது:</b> மின்தடை ஏற்பட்டு லிஃப்டிற்குள் மாட்டிக்கொள்ள நேரிடும்.</li>
+                        <li><span class="danger-icon">⛔</span> <b>பொருட்களை எடுக்கத் திரும்பக் கூடாது:</b> மொபைல், பணம் அல்லது ஆவணங்களை எடுப்பதற்காக எரியும் கட்டிடத்திற்குள் மீண்டும் செல்லக் கூடாது.</li>
+                        <li><span class="danger-icon">⛔</span> <b>மின்சாரத் தீயில் தண்ணீர் ஊற்றக் கூடாது:</b> சுவிட்ச் போர்டு அல்லது மின்சாதனங்களில் தீப்பற்றினால் தண்ணீர் ஊற்றக் கூடாது (அதற்குப் பதில் உலர் வேதிப் பொடி அல்லது மணல் பயன்படுத்தலாம்).</li>
+                    </ul>
+                    <div class="warning-box" style="background:#fde8e8;border-left-color:#c0392b;">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                        <b>எச்சரிக்கை:</b> மின்சாரத் தீயில் தண்ணீர் ஊற்றுவது மின்சாரம் பாய்ந்து உயிருக்கு ஆபத்தை விளைவிக்கும்!
+                    </div>
+                </div>
+
+                <!-- 4. PASS Method -->
+                <div class="fire-card" style="border-left-color:#2980b9;">
+                    <div class="fire-card-title">
+                        <i class="bi bi-tools" style="color:#2980b9;"></i> 🧯 4. தீயணைப்பானைப் பயன்படுத்தும் PASS முறை
+                    </div>
+                    <div class="pass-grid">
+                        <div class="pass-item">
+                            <span class="pass-letter">P</span>
+                            <span class="pass-word">PULL</span>
+                            <span class="pass-desc">பாதுகாப்பு வளையத்தை இழுக்கவும்</span>
+                        </div>
+                        <div class="pass-item">
+                            <span class="pass-letter">A</span>
+                            <span class="pass-word">AIM</span>
+                            <span class="pass-desc">தீயின் அடிப்பகுதியை நோக்கி குறி வைக்கவும்</span>
+                        </div>
+                        <div class="pass-item">
+                            <span class="pass-letter">S</span>
+                            <span class="pass-word">SQUEEZE</span>
+                            <span class="pass-desc">கைப்பிடியை பலமாக அழுத்தவும்</span>
+                        </div>
+                        <div class="pass-item">
+                            <span class="pass-letter">S</span>
+                            <span class="pass-word">SWEEP</span>
+                            <span class="pass-desc">தீ அணையும் வரை இடமிருந்து வலமாக வீசவும்</span>
+                        </div>
+                    </div>
+                    <div class="info-box" style="background:#fef9e7;border-left-color:#f1c40f;">
+                        <i class="bi bi-lightbulb-fill" style="color:#f1c40f;"></i>
+                        <b>நினைவில் கொள்ளுங்கள்:</b> PASS - PULL, AIM, SQUEEZE, SWEEP!
+                    </div>
+                </div>
+
+                <!-- 5. Fire Extinguisher Types -->
+                <div class="fire-card" style="border-left-color:#8e44ad;">
+                    <div class="fire-card-title">
+                        <i class="bi bi-list-ul" style="color:#8e44ad;"></i> 🏢 5. கட்டிடங்களில் இருக்க வேண்டிய தீத்தடுப்பு உபகரணங்கள்
+                    </div>
+                    <ul>
+                        <li><span class="tip-icon">✅</span> <b>தீயணைப்பான்கள் (Fire Extinguishers):</b> உலர் வேதிப் பொடி (DCP) அல்லது CO₂ சிலிண்டர்கள்</li>
+                        <li><span class="tip-icon">✅</span> <b>புகை கண்டறியும் கருவிகள் (Smoke Detectors):</b> கூரையில் பொருத்தப்பட்ட தானியங்கி கருவிகள்</li>
+                        <li><span class="tip-icon">✅</span> <b>தீ எச்சரிக்கை மணிகள் (Fire Alarm Call Points):</b> கைமுறையாக இயக்கும் சிவப்பு பெட்டிகள்</li>
+                        <li><span class="tip-icon">✅</span> <b>நீர் தெளிப்பான்கள் (Automatic Sprinklers):</b> வெப்பம் அதிகரிக்கும் போது தானாக செயல்படும்</li>
+                        <li><span class="tip-icon">✅</span> <b>தீயணைப்பு நீர் குழாய்கள் (Fire Hose Reels):</b> பெரிய அளவில் தண்ணீர் பாய்ச்ச உதவும்</li>
+                        <li><span class="tip-icon">✅</span> <b>ஒளிரும் அவசர வழிப் பலகைகள் (Emergency Exit Signboards):</b> இருட்டில் வழிகாட்டும் பலகைகள்</li>
+                        <li><span class="tip-icon">✅</span> <b>மணல் வாளிகள் (Fire Sand Buckets):</b> சிறிய தீயை அணைக்க உதவும்</li>
+                    </ul>
+                </div>
+
+                <!-- 6. Fire Extinguisher Types Table -->
+                <div class="fire-card" style="border-left-color:#27ae60;">
+                    <div class="fire-card-title">
+                        <i class="bi bi-table" style="color:#27ae60;"></i> 📊 6. உங்கள் கட்டிடத்திற்கு எந்த வகை தீயணைப்பான் தேவை?
+                    </div>
+                    <table class="extinguisher-table">
+                        <thead>
+                            <tr>
+                                <th>தீயின் வகை</th>
+                                <th>எரியும் பொருட்கள்</th>
+                                <th>பொருத்தமான தீயணைப்பான்</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="class-badge a">Class A</span></td>
+                                <td>மரம், காகிதம், துணி</td>
+                                <td>Water அல்லது DCP</td>
+                            </tr>
+                            <tr>
+                                <td><span class="class-badge b">Class B</span></td>
+                                <td>பெட்ரோல், டீசல், எண்ணெய்</td>
+                                <td>Foam அல்லது CO₂</td>
+                            </tr>
+                            <tr>
+                                <td><span class="class-badge c">Class C</span></td>
+                                <td>எரிவாயு (LPG, CNG)</td>
+                                <td>DCP (Dry Chemical Powder)</td>
+                            </tr>
+                            <tr>
+                                <td><span class="class-badge e">Electrical</span></td>
+                                <td>கணினிகள், சுவிட்ச் போர்டுகள்</td>
+                                <td>CO₂ (Carbon Dioxide)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="info-box" style="background:#e8f8f0;border-left-color:#27ae60;margin-top:10px;">
+                        <i class="bi bi-check-circle-fill" style="color:#27ae60;"></i>
+                        <b>பரிந்துரை:</b> பொதுவான அலுவலகம்/வீட்டிற்கு <b>ABC மாடல் (DCP)</b> தீயணைப்பான் சிறந்தது. இது மரம், எண்ணெய் மற்றும் மின்சாரத் தீ மூன்றுக்கும் வேலை செய்யும்.
+                    </div>
+                </div>
+
+                <!-- 7. Fire Mock Drill Rules -->
+                <div class="fire-card" style="border-left-color:#1abc9c;">
+                    <div class="fire-card-title">
+                        <i class="bi bi-people-fill" style="color:#1abc9c;"></i> 🏢 7. தீத்தடுப்புப் பயிற்சி விதிகள் (Fire Mock Drill Rules)
+                    </div>
+                    <ul>
+                        <li><span class="tip-icon">✅</span> <b>அலாரத்தைக் கேட்டவுடன் செயல்படுதல்:</b> பதற்றமடையாமல் கையில் இருக்கும் வேலைகளை உடனடியாக நிறுத்த வேண்டும்.</li>
+                        <li><span class="tip-icon">✅</span> <b>அவசர வழியைப் பயன்படுத்துதல்:</b> 'Emergency Exit' என்று குறிக்கப்பட்ட பாதையைப் பயன்படுத்த வேண்டும்.</li>
+                        <li><span class="danger-icon">⛔</span> <b>மின்தூக்கியைத் (Lift) தவிர்க்கவும்:</b> படிக்கட்டுகளை மட்டுமே பயன்படுத்த வேண்டும்.</li>
+                        <li><span class="tip-icon">✅</span> <b>வரிசையாகச் செல்லுதல்:</b> ஒருவரைப் பின் தொடர்ந்து மற்றொருவர் வரிசையாக (Single File) செல்ல வேண்டும்.</li>
+                        <li><span class="tip-icon">✅</span> <b>கூடும் இடம் (Assembly Point):</b> முன்னரே தீர்மானிக்கப்பட்ட 'பாதுகாப்பாகக் கூடும் இடத்திற்கு' (Safe Assembly Point) செல்ல வேண்டும்.</li>
+                        <li><span class="tip-icon">✅</span> <b>தலைமைப் பொறுப்பாளர் ஆய்வு (Roll Call):</b> வருகைப் பதிவு (Attendance Check) சரிபார்க்கப்படும்.</li>
+                    </ul>
+                    <div class="info-box" style="background:#e8f8f0;border-left-color:#1abc9c;">
+                        <i class="bi bi-info-circle-fill" style="color:#1abc9c;"></i>
+                        <b>குறிப்பு:</b> பயிற்சியின் போது அனைவரும் அமைதியாகவும், ஒழுங்காகவும் செயல்பட வேண்டும்.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    WEATHER SAFETY SECTION
+    ============================================================ -->
+    <section class="weather-safety-section" id="weather">
+        <div class="container">
+            <div class="weather-header">
+                <h3><i class="bi bi-cloud-rain-fill"></i> கனமழை மற்றும் வெள்ளத்தின் போது பாதுகாப்பு வழிமுறைகள்</h3>
+                <span class="weather-badge"><i class="bi bi-water"></i> 🌧️ பாதுகாப்பு</span>
+            </div>
+            <div class="weather-grid">
+                <div class="weather-card" style="border-left-color:#2980b9;">
+                    <div class="weather-card-title">
+                        <i class="bi bi-cloud-rain-fill rain-icon"></i> 🌧️ கனமழையின் போது (During Heavy Rain)
+                    </div>
+                    <ul>
+                        <li><span class="tip-icon">✅</span> <b>வானிலை செய்திகளைக் கவனியுங்கள்:</b> வானொலி, தொலைக்காட்சி அல்லது மொபைல் செயலிகள் மூலம் அவசர எச்சரிக்கைகளைக் கவனியுங்கள்.</li>
+                        <li><span class="tip-icon">✅</span> <b>அத்தியாவசியப் பொருட்களைச் சேமித்து வையுங்கள்:</b> உலர் உணவு, குடிநீர், மருந்துகள், ஃப்ளாஷ்லைட், பேட்டரிகள் போன்றவற்றைத் தயாராக வைக்கவும்.</li>
+                        <li><span class="danger-icon">⛔</span> <b>மின்சாதனப் பயன்பாட்டைத் தவிர்க்கவும்:</b> மின்னல் தாக்கும் அபாயம் உள்ளதால் மின்சாதனங்களைப் பயன்படுத்த வேண்டாம்.</li>
+                        <li><span class="danger-icon">⛔</span> <b>தேவையில்லாமல் வெளியே செல்ல வேண்டாம்:</b> கனமழையின் போது பயணிப்பது ஆபத்தானது.</li>
+                        <li><span class="tip-icon">✅</span> <b>குடிநீரைப் பத்திரப்படுத்தி வையுங்கள்:</b> வெள்ளம் ஏற்பட்டால் குடிநீர் கிடைப்பதில் சிக்கல் ஏற்படலாம்.</li>
+                    </ul>
+                    <div class="info-box">
+                        <i class="bi bi-info-circle-fill"></i>
+                        <b>குறிப்பு:</b> கனமழை எச்சரிக்கை வெளியிடப்பட்டால், உடனடியாக பாதுகாப்பான இடத்திற்குச் செல்லுங்கள்.
+                    </div>
+                </div>
+                <div class="weather-card" style="border-left-color:#e67e22;">
+                    <div class="weather-card-title">
+                        <i class="bi bi-water flood-icon"></i> 🌊 வெள்ளத்தின் போது (During Floods)
+                    </div>
+                    <ul>
+                        <li><span class="warning-icon">⚠️</span> <b>உயரமான இடத்திற்குச் செல்லுங்கள்:</b> உடனடியாகப் பாதுகாப்பான உயரமான இடங்களுக்குச் செல்லவும்.</li>
+                        <li><span class="danger-icon">⛔</span> <b>வெள்ள நீரில் நடக்க வேண்டாம்:</b> 15 செ.மீ நீரும் உங்களை வீழ்த்தலாம்.</li>
+                        <li><span class="danger-icon">⛔</span> <b>வெள்ள நீரில் நீந்த வேண்டாம்:</b> நீரோட்டம் மற்றும் குப்பைகள் காரணமாக ஆபத்து.</li>
+                        <li><span class="danger-icon">⛔</span> <b>வாகனங்களை இயக்க வேண்டாம்:</b> வெள்ள நீரில் வாகனம் செலுத்துவது மிகவும் ஆபத்தானது.</li>
+                        <li><span class="danger-icon">⛔</span> <b>மின்கம்பங்கள் அருகில் செல்லாதீர்கள்:</b> வெள்ளத்தில் மூழ்கிய மின்கம்பங்கள் மின்சாரம் பாய வாய்ப்புள்ளது.</li>
+                        <li><span class="tip-icon">✅</span> <b>காய்ச்சிய நீரைக் குடியுங்கள்:</b> எப்போதும் காய்ச்சிய அல்லது சுத்திகரிக்கப்பட்ட நீரை மட்டும் குடிக்கவும்.</li>
+                    </ul>
+                    <div class="warning-box">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                        <b>அவசர எச்சரிக்கை:</b> வெள்ளம் ஏற்பட்டால் உடனடியாக உயரமான இடத்திற்குச் செல்லுங்கள்! உயிருக்கு ஆபத்து!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    LIGHTNING SAFETY SECTION
+    ============================================================ -->
+    <section class="lightning-section" id="lightning">
+        <div class="container">
+            <div class="lightning-header">
+                <h3><i class="bi bi-cloud-lightning-fill"></i> இடி, மின்னல் (Lightning) ஏற்படும் போது பாதுகாப்பு</h3>
+                <span class="lightning-badge"><i class="bi bi-lightning-fill"></i> ⚡ பாதுகாப்பு</span>
+            </div>
+            <div class="lightning-grid">
+                <div class="lightning-card" style="border-left-color:#2980b9;">
+                    <div class="lightning-card-title">
+                        <i class="bi bi-house-fill indoor-icon"></i> 1. வீட்டிற்குள் (Indoors)
+                    </div>
+                    <ul>
+                        <li><span class="tip-icon">✅</span> <b>மின்சாதனங்களைத் துண்டிக்கவும்:</b> கணினி, TV மற்றும் பிற மின்சாதனங்களின் பிளக்குகளை உடனடியாகக் கழற்றிவிடவும்.</li>
+                        <li><span class="danger-icon">⛔</span> <b>தண்ணீர் குழாய்களைப் பயன்படுத்த வேண்டாம்:</b> குளிப்பது, பாத்திரங்கள் கழுவுவதைத் தவிர்க்கவும்.</li>
+                        <li><span class="tip-icon">📞</span> <b>தொலைபேசி பயன்பாடு:</b> லேண்ட்லைன் போன்களைப் பயன்படுத்த வேண்டாம். மொபைல் போன்களைப் பயன்படுத்தலாம்.</li>
+                        <li><span class="danger-icon">⛔</span> <b>சுவர்கள் மற்றும் ஜன்னல்கள்:</b> ஜன்னல்கள், வெளிக்கதவுகள் மற்றும் கான்கிரீட் சுவர்களுக்கு அருகில் நிற்பதைத் தவிர்க்கவும்.</li>
+                    </ul>
+                </div>
+                <div class="lightning-card" style="border-left-color:#e67e22;">
+                    <div class="lightning-card-title">
+                        <i class="bi bi-tree-fill outdoor-icon"></i> 2. வெளியில் (Outdoors)
+                    </div>
+                    <ul>
+                        <li><span class="safe-icon">🏠</span> <b>பாதுகாப்பான இடத்திற்குச் செல்லவும்:</b> நிலையான கட்டிடம் அல்லது Hard-top காரினுள் தஞ்சமடையவும்.</li>
+                        <li><span class="danger-icon">⛔</span> <b>மரங்களின் கீழ் நிற்க வேண்டாம்:</b> உயரமான மரங்கள், மின் கம்பங்கள் அல்லது கோபுரங்களின் கீழ் ஒருபோதும் நிற்கக் கூடாது.</li>
+                        <li><span class="tip-icon">🧎</span> <b>மின்னல் பாதுகாப்பு நிலை (Lightning Crouch):</b> தரையில் படுக்கக் கூடாது. கால்களை ஒன்றாகச் சேர்த்து, முழங்கால்களைக் கட்டிக்கொண்டு, தலை குனிந்து அமர வேண்டும்.</li>
+                        <li><span class="danger-icon">⛔</span> <b>குழுவாக இருக்கக் கூடாது:</b> அனைவரும் ஒன்றாக நிற்காமல் ஒருவருக்கொருவர் தள்ளி (தனித்தனியாக) நிற்க வேண்டும்.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    SOP MANUAL SECTION
+    ============================================================ -->
+    <section class="sop-section" id="sop">
+        <div class="container">
+            <div class="sop-header">
+                <h3><i class="bi bi-book-fill"></i> அனர்த்த நிவாரண சேவைகள் பிரிவு - வேலைக் கையேடு (SOP)</h3>
+                <span class="sop-badge"><i class="bi bi-check-circle-fill"></i> முழுமையான வழிகாட்டல்</span>
+            </div>
+            <div class="sop-grid">
+                <div class="sop-card">
+                    <div class="sop-card-title"><i class="bi bi-info-circle-fill"></i> 1. அறிமுகமும் நோக்கமும்</div>
+                    <span class="sop-card-sub">Introduction & Objective</span>
+                    <ul>
+                        <li><b>நோக்கம்:</b> பிரதேச செயலகப் பிரிவுக்குள் ஏற்படும் அனர்த்தங்களின் போது, மக்களுக்கான நிவாரணங்களை முறைகேடுகள் மற்றும் காலதாமதமின்றி வழங்குவதற்கான வழிகாட்டல்.</li>
+                        <li><b>பணிப்பரப்பு:</b> உணவு வழங்குதல், சேதமடைந்த வீடுகளுக்கான இழப்பீடு, முகாம் நிருவாகம் மற்றும் தரவுப் பதிவேற்றம்.</li>
+                    </ul>
+                </div>
+                <div class="sop-card">
+                    <div class="sop-card-title"><i class="bi bi-calendar-check-fill"></i> 2. அவசரநிலைக்கு முந்தைய பணிகள்</div>
+                    <span class="sop-card-sub">Pre-Disaster</span>
+                    <ul>
+                        <li><b>அனர்த்த அவசரத் திட்டம்:</b> கிராம உத்தியோகத்தர் பிரிவுகளின் கடந்தகால அனர்த்தத் தரவுகளை அடிப்படையாகக் கொண்டு திட்டமிடுதல்.</li>
+                        <li><b>பாதுகாப்பு மையங்களை அடையாளம் காணல்:</b> பாடசாலைகள், சமூக மண்டபங்கள் போன்றவற்றை முகாம்களாக தயார் நிலையில் வைத்தல்.</li>
+                        <li><b>விழிப்புணர்வுத் திட்டங்கள்:</b> கிராம மட்டத்தில் அனர்த்த அபாயங்களைக் குறைப்பதற்கான விழிப்புணர்வுக் கூட்டங்களை நடத்துதல்.</li>
+                    </ul>
+                </div>
+                <div class="sop-card">
+                    <div class="sop-card-title"><i class="bi bi-exclamation-triangle-fill"></i> 3. அவசரநிலைக்காலப் பணிகள்</div>
+                    <span class="sop-card-sub">Emergency Response</span>
+                    <ul>
+                        <li><b>உடனடி உணவு விநியோகம்:</b> பாதிக்கப்பட்ட மக்களுக்கு சமைத்த உணவு அல்லது உலர் உணவுப் பொருட்களை விநியோகித்தல்.</li>
+                        <li><b>டிஜிட்டல் தரவுப் பதிவு:</b> பாதிக்கப்பட்ட குடும்பங்களின் விபரங்களை தேசிய அனர்த்த தரவு வங்கியில் பதிவேற்றுதல்.</li>
+                        <li><b>முகாம் நிருவாகம்:</b> முகாம்களில் தேவையான நீர், சுகாதாரம் மற்றும் அத்தியாவசியப் பொருட்களை வழங்குவதை ஒருங்கிணைத்தல்.</li>
+                    </ul>
+                </div>
+                <div class="sop-card">
+                    <div class="sop-card-title"><i class="bi bi-tools"></i> 4. பிந்தைய பணிகள்</div>
+                    <span class="sop-card-sub">Post-Disaster</span>
+                    <ul>
+                        <li><b>சேத விபர மதிப்பீடு:</b> சேதமடைந்த வீடுகள் மற்றும் வாழ்வாதாரச் சொத்துக்களின் விபரங்களைத் திரட்டுதல்.</li>
+                        <li><b>இழப்பீடு வழங்குதல்:</b> காயம்/உயிரிழப்பு, சேதமடைந்த வீடுகள் மற்றும் வீட்டு உபயோகப் பொருட்களுக்கான நட்டஈடுகளை விரைவாக வழங்குதல்.</li>
+                        <li><b>பாதுகாப்பான வீடமைப்பு:</b> அதிக அபாய வலயங்களில் வாழும் மக்களை பாதுகாப்பான இடங்களுக்கு மீள்குடியேற்றுதல்.</li>
+                    </ul>
+                </div>
+                <div class="sop-card">
+                    <div class="sop-card-title"><i class="bi bi-folder2-open"></i> 5. ஆவணப் பராமரிப்பு</div>
+                    <span class="sop-card-sub">Documentation</span>
+                    <ul>
+                        <li><b>பராமரிக்கப்பட வேண்டிய பதிவேடுகள்:</b><br/>1. அனர்த்தப் பதிவேடு<br/>2. நிவாரணப் பொருட்கள் விநியோகப் பதிவேடு<br/>3. நிதிப் பதிவேடு</li>
+                        <li><b>அறிக்கை சமர்ப்பித்தல்:</b> வாராந்த/மாதாந்த அனர்த்த நிலைமை அறிக்கைகளை மாவட்ட செயலகத்திற்கும் தலைமை அலுவலகத்திற்கும் சமர்ப்பித்தல்.</li>
+                    </ul>
+                </div>
+                <div class="sop-card">
+                    <div class="sop-card-title"><i class="bi bi-people-fill"></i> 6. ஒருங்கிணைப்பு</div>
+                    <span class="sop-card-sub">Coordination</span>
+                    <ul>
+                        <li><b>உள்வாரி ஒருங்கிணைப்பு:</b> பிரதேச செயலாளர், கணக்காளர், திட்டமிடல் பணிப்பாளர் மற்றும் கிராம உத்தியோகத்தர்களுடன் இணைந்த செயல்பாடுகள்.</li>
+                        <li><b>வெளிவாரி ஒருங்கிணைப்பு:</b> முப்படைகள், பொலிஸார், சுகாதாரத் திணைக்களம் மற்றும் அரச சார்பற்ற நிறுவனங்களுடன் ஒருங்கிணைப்பு.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    CHAT SECTION
+    ============================================================ -->
+    <section class="chat-wrapper" id="chat">
+        <div class="container">
+            <div class="chat-container">
+
+                <div class="chat-header">
+                    <div class="logo-icon"><i class="bi bi-robot"></i></div>
+                    <div class="header-text">
+                        <h4>NDRSC AI உதவி <i class="bi bi-robot" style="font-size:0.7rem;"></i></h4>
+                        <small>வழிகாட்டி 09/2026 · 11/2026 · SOP · தீ · மழை/வெள்ளம் · இடி-மின்னல்</small>
+                    </div>
+                    <span class="badge-dual"><i class="bi bi-check-circle-fill"></i> 100%</span>
+                </div>
+
+                <div class="mode-toggle">
+                    <span class="mode-label"><i class="bi bi-layers"></i> முறை:</span>
+                    <div class="btn-group" role="group">
+                        <button class="btn active" data-mode="all" id="modeAll">அனைத்தும்</button>
+                        <button class="btn" data-mode="g09" id="modeG09"><i class="bi bi-file-pdf" style="color:#27ae60;"></i> 09/2026</button>
+                        <button class="btn" data-mode="g11" id="modeG11"><i class="bi bi-file-pdf" style="color:#c0392b;"></i> 11/2026</button>
+                        <button class="btn" data-mode="sop" id="modeSop"><i class="bi bi-book" style="color:#0a3d5c;"></i> SOP</button>
+                        <button class="btn" data-mode="fire" id="modeFire"><i class="bi bi-fire" style="color:#e74c3c;"></i> தீ</button>
+                        <button class="btn" data-mode="weather" id="modeWeather"><i class="bi bi-cloud-rain" style="color:#1565c0;"></i> மழை/வெள்ளம்</button>
+                        <button class="btn" data-mode="lightning" id="modeLightning"><i class="bi bi-cloud-lightning" style="color:#f1c40f;"></i> இடி-மின்னல்</button>
+                    </div>
+                    <span class="active-mode-indicator" id="activeModeDisplay">📚 அனைத்தும்</span>
+                </div>
+
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message bot">
+                        <span class="bot-label">
+                            <i class="bi bi-robot"></i> NDRSC AI
+                            <span class="guideline-tag g09">📄 09/2026</span>
+                            <span class="guideline-tag g11">📄 11/2026</span>
+                            <span class="guideline-tag" style="background:#e8f0fe;color:#0a3d5c;">📘 SOP</span>
+                            <span class="guideline-tag fire">🔥 தீ</span>
+                            <span class="guideline-tag weather">🌧️ மழை/வெள்ளம்</span>
+                            <span class="guideline-tag lightning">⚡ இடி-மின்னல்</span>
+                        </span>
+                        <b>வணக்கம்! 👋</b><br/><br/>
+                        நான் <b>வழிகாட்டி 09/2026</b>, <b>11/2026</b>, <b>SOP கையேடு</b>, <b>தீ பாதுகாப்பு</b>, <b>மழை/வெள்ளம்</b> மற்றும் <b>இடி-மின்னல்</b> பாதுகாப்பு ஆகியவற்றை 100% உள்ளடக்கிய AI உதவியாளர்.<br/><br/>
+                        <b>🔥 தீ பாதுகாப்பு:</b><br/>
+                        • உடனடி நடவடிக்கைகள் · Stop, Drop, Roll · PASS முறை<br/>
+                        • தீயணைப்பான் வகைகள் · Mock Drill விதிகள்<br/><br/>
+                        <b>🌧️ மழை/வெள்ளம்:</b><br/>
+                        • கனமழை: செய்திகள், அத்தியாவசிய பொருட்கள், மின்சாதனத் தவிப்பு<br/>
+                        • வெள்ளம்: உயரமான இடம், வெள்ள நீரில் நடக்க வேண்டாம்<br/><br/>
+                        <b>⚡ இடி-மின்னல்:</b><br/>
+                        • வீட்டிற்குள்: மின்சாதனங்களைத் துண்டிக்கவும், குழாய் நீரைத் தவிர்க்கவும்<br/>
+                        • வெளியில்: பாதுகாப்பான இடம், Lightning Crouch<br/><br/>
+                        <b>📄 வழிகாட்டி 09/2026 & 11/2026:</b><br/>
+                        • வீடு சுத்தம் (25K) · சமையலறை (50K) · வீட்டுச் சேதம் · முழு சேதம் (5.0M)<br/><br/>
+                        <b>📘 SOP கையேடு (6 பிரிவுகள்)</b><br/><br/>
+                        <i>கீழே உள்ள சிப்புகளை கிளிக் செய்யவும் அல்லது கேள்வியை தட்டச்சு செய்யவும்.</i>
+                        <span class="timestamp">இப்போது</span>
+                    </div>
+                </div>
+
+                <div class="doc-links">
+                    <div class="doc-group">
+                        <span class="doc-group-label"><i class="bi bi-folder"></i> ஆவணங்கள்:</span>
+                        <a href="https://ndrsc.gov.lk/web/index.php?option=com_phocadownload&view=section&id=1%3Adownloads&lang=en&Itemid=48" target="_blank" class="doc-badge"><i class="bi bi-clock-history"></i> நிமிடங்கள் <span class="count">0</span></a>
+                        <a href="https://ndrsc.gov.lk/web/index.php?option=com_phocadownload&view=section&id=1%3Adownloads&lang=en&Itemid=48" target="_blank" class="doc-badge"><i class="bi bi-gavel"></i> வட்டாரங்கள் & சட்டங்கள் <span class="count">50</span></a>
+                        <a href="https://ndrsc.gov.lk/web/index.php?option=com_phocadownload&view=section&id=1%3Adownloads&lang=en&Itemid=48" target="_blank" class="doc-badge"><i class="bi bi-book"></i> வெளியீடுகள் <span class="count">15</span></a>
+                        <a href="https://ndrsc.gov.lk/web/index.php?option=com_phocadownload&view=section&id=1%3Adownloads&lang=en&Itemid=48" target="_blank" class="doc-badge"><i class="bi bi-graph-up"></i> வருடாந்த அறிக்கைகள் <span class="count">14</span></a>
+                        <a href="https://ndrsc.gov.lk/web/index.php?option=com_phocadownload&view=section&id=1%3Adownloads&lang=en&Itemid=48" target="_blank" class="doc-badge"><i class="bi bi-file-earmark-text"></i> விண்ணப்பப் படிவங்கள் <span class="count">76</span></a>
+                        <a href="https://ndrsc.gov.lk/web/index.php?option=com_phocadownload&view=section&id=1%3Adownloads&lang=en&Itemid=48" target="_blank" class="doc-badge"><i class="bi bi-newspaper"></i> இதழ்கள் <span class="count">1</span></a>
+                    </div>
+                </div>
+
+                <div class="suggestions" id="suggestionChips">
+                    <!-- Fire Safety -->
+                    <span class="badge fire-badge" data-question="தீ விபத்து ஏற்பட்டால் உடனடி நடவடிக்கைகள்">🔥 உடனடி நடவடிக்கைகள்</span>
+                    <span class="badge fire-badge" data-question="ஆடையில் தீப்பற்றினால் செய்ய வேண்டியவை">🛑 Stop, Drop, Roll</span>
+                    <span class="badge fire-badge" data-question="PASS முறை - தீயணைப்பான் பயன்படுத்தும் முறை">🧯 PASS முறை</span>
+                    <span class="badge fire-badge" data-question="தீத்தடுப்புப் பயிற்சி விதிகள்">🏢 Mock Drill Rules</span>
+                    <!-- Weather -->
+                    <span class="badge weather-badge" data-question="கனமழையின் போது பாதுகாப்பு">🌧️ கனமழை</span>
+                    <span class="badge weather-badge" data-question="வெள்ளத்தின் போது பாதுகாப்பு">🌊 வெள்ளம்</span>
+                    <!-- Lightning -->
+                    <span class="badge lightning-badge" data-question="இடி-மின்னல் - வீட்டிற்குள் பாதுகாப்பு">⚡ வீட்டிற்குள்</span>
+                    <span class="badge lightning-badge" data-question="இடி-மின்னல் - வெளியில் பாதுகாப்பு">⚡ வெளியில்</span>
+                    <!-- Guidelines -->
+                    <span class="badge g09" data-question="05. வீடு சுத்தம் - ரூ.25,000 கொடுப்பனவு">🧹 வீடு சுத்தம் <span class="pg">(09/ப.4-5)</span></span>
+                    <span class="badge g11" data-question="11/2026 முழு சேதம் - ரூ.5.0M">💰 11/2026 முழு <span class="pg">(11/ப.6-7)</span></span>
+                    <!-- SOP -->
+                    <span class="badge sop-badge" data-question="SOP - அவசரநிலைக்கு முந்தைய பணிகள்">📘 முந்தைய பணிகள்</span>
+                    <span class="badge sop-badge" data-question="SOP - அனர்த்தத்திற்குப் பிந்தைய பணிகள்">📘 பிந்தைய பணிகள்</span>
+                    <!-- Links -->
+                    <span class="badge link-badge" onclick="window.open('https://docs.google.com/spreadsheets/d/16XYb6sfU08NmroC4jvkXCSQMbQ1JbqF-/edit?usp=sharing','_blank')">
+                        <i class="bi bi-box-arrow-up-right"></i> மாணவர் பட்டியல்
+                    </span>
+                    <span class="badge link-badge" onclick="window.open('https://ndrsc.gov.lk/web/index.php?option=com_phocadownload&view=section&id=1%3Adownloads&lang=en&Itemid=48','_blank')">
+                        <i class="bi bi-box-arrow-up-right"></i> NDRSC ஆவணங்கள்
+                    </span>
+                </div>
+
+                <div class="chat-input">
+                    <div class="input-group">
+                        <input type="text" id="userInput" placeholder="தமிழில் கேள்வியைத் தட்டச்சு செய்யவும்..." />
+                        <button id="sendBtn"><i class="bi bi-send-fill"></i> <span>அனுப்பு</span></button>
+                    </div>
+                    <div class="footer-note">
+                        <i class="bi bi-check-circle-fill" style="color:#27ae60;"></i> 100% வழிகாட்டி 09/2026 + 11/2026 + SOP + தீ + மழை/வெள்ளம் + இடி-மின்னல் &nbsp;|&nbsp;
+                        <i class="bi bi-link-45deg"></i> <a href="https://ndrsc.gov.lk/web/index.php?option=com_phocadownload&view=section&id=1%3Adownloads&lang=en&Itemid=48" target="_blank">NDRSC ஆவணங்கள்</a>
+                    </div>
+                </div>
+
+                <div id="typingIndicator" class="typing-indicator" style="display:none; margin-left:16px; margin-bottom:6px;">
+                    <span></span><span></span><span></span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    FOOTER
+    ============================================================ -->
+    <footer class="footer-ndrsc">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <div class="footer-brand">
+                        <i class="bi bi-shield-fill-check"></i> NDRSC
+                    </div>
+                    <p style="font-size:0.8rem;margin-top:6px;">
+                        தேசிய அனர்த்த நிவாரண சேவைகள் மையம்<br/>
+                        <i class="bi bi-telephone"></i> <a href="tel:117">117</a> &nbsp;|&nbsp;
+                        <i class="bi bi-envelope"></i> <a href="mailto:info@ndrsc.gov.lk">info@ndrsc.gov.lk</a>
+                    </p>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h6 style="color:#fff;font-weight:600;font-size:0.85rem;">விரைவு இணைப்புகள்</h6>
+                    <div style="display:flex;flex-wrap:wrap;gap:8px 16px;">
+                        <a href="#contacts"><i class="bi bi-chevron-right"></i> அவசர எண்கள்</a>
+                        <a href="#fire"><i class="bi bi-chevron-right"></i> தீ பாதுகாப்பு</a>
+                        <a href="#weather"><i class="bi bi-chevron-right"></i> மழை/வெள்ளம்</a>
+                        <a href="#lightning"><i class="bi bi-chevron-right"></i> இடி-மின்னல்</a>
+                        <a href="#sop"><i class="bi bi-chevron-right"></i> SOP கையேடு</a>
+                        <a href="#chat"><i class="bi bi-chevron-right"></i> AI உதவி</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h6 style="color:#fff;font-weight:600;font-size:0.85rem;">அவசர எண்கள்</h6>
+                    <div style="display:flex;flex-wrap:wrap;gap:4px 12px;font-size:0.8rem;">
+                        <span><i class="bi bi-telephone-fill text-danger"></i> தீ: 110</span>
+                        <span><i class="bi bi-telephone-fill text-danger"></i> DMC: 117</span>
+                        <span><i class="bi bi-telephone-fill text-primary"></i> பொலிஸ்: 119</span>
+                        <span><i class="bi bi-telephone-fill text-success"></i> ஆம்புலன்ஸ்: 1990</span>
+                    </div>
+                </div>
+            </div>
+            <hr class="footer-divider" />
+            <div class="text-center" style="font-size:0.7rem;opacity:0.6;">
+                &copy; 2026 NDRSC - தேசிய அனர்த்த நிவாரண சேவைகள் மையம். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+    <!-- ============================================================
+    CHAT AI SCRIPT - Complete with Fire + Weather + Lightning + Guidelines + SOP
+    ============================================================ -->
+    <script>
+        (function() {
+            const messagesContainer = document.getElementById('chatMessages');
+            const userInput = document.getElementById('userInput');
+            const sendBtn = document.getElementById('sendBtn');
+            const suggestionChips = document.querySelectorAll('.suggestions .badge');
+            const typingIndicator = document.getElementById('typingIndicator');
+            const activeModeDisplay = document.getElementById('activeModeDisplay');
+
+            const modeAll = document.getElementById('modeAll');
+            const modeG09 = document.getElementById('modeG09');
+            const modeG11 = document.getElementById('modeG11');
+            const modeSop = document.getElementById('modeSop');
+            const modeFire = document.getElementById('modeFire');
+            const modeWeather = document.getElementById('modeWeather');
+            const modeLightning = document.getElementById('modeLightning');
+
+            let currentMode = 'all';
+
+            function scrollToBottom() {
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+
+            function addMessage(text, sender, guideline = 'all', pageRef = null, sectionRef = null) {
+                const msgDiv = document.createElement('div');
+                msgDiv.classList.add('message', sender);
+                if (sender === 'bot') {
+                    const label = document.createElement('span');
+                    label.classList.add('bot-label');
+                    let tagHtml = '';
+                    if (guideline === 'g09' || guideline === 'all') {
+                        tagHtml += `<span class="guideline-tag g09">📄 09/2026</span>`;
+                    }
+                    if (guideline === 'g11' || guideline === 'all') {
+                        tagHtml += `<span class="guideline-tag g11">📄 11/2026</span>`;
+                    }
+                    if (guideline === 'sop' || guideline === 'all') {
+                        tagHtml += `<span class="guideline-tag" style="background:#e8f0fe;color:#0a3d5c;">📘 SOP</span>`;
+                    }
+                    if (guideline === 'fire' || guideline === 'all') {
+                        tagHtml += `<span class="guideline-tag fire">🔥 தீ</span>`;
+                    }
+                    if (guideline === 'weather' || guideline === 'all') {
+                        tagHtml += `<span class="guideline-tag weather">🌧️ மழை/வெள்ளம்</span>`;
+                    }
+                    if (guideline === 'lightning' || guideline === 'all') {
+                        tagHtml += `<span class="guideline-tag lightning">⚡ இடி-மின்னல்</span>`;
+                    }
+                    if (pageRef) tagHtml +=
+                        ` <span class="guideline-tag" style="background:#e3ecf5;font-size:0.45rem;">📖 ${pageRef}</span>`;
+                    label.innerHTML = `<i class="bi bi-robot"></i> NDRSC AI ${tagHtml}`;
+                    msgDiv.appendChild(label);
+                    const textNode = document.createElement('span');
+                    textNode.innerHTML = text.replace(/\n/g, '<br/>');
+                    msgDiv.appendChild(textNode);
+                    if (pageRef) {
+                        const ref = document.createElement('span');
+                        ref.classList.add('reference');
+                        const gLabel = guideline === 'g09' ? 'வழிகாட்டி 09/2026' : guideline === 'g11' ?
+                            'வழிகாட்டி 11/2026' : guideline === 'sop' ? 'SOP கையேடு' : guideline === 'fire' ?
+                            'தீ பாதுகாப்பு' : guideline === 'weather' ? 'மழை/வெள்ளம் பாதுகாப்பு' :
+                            guideline === 'lightning' ? 'இடி-மின்னல் பாதுகாப்பு' :
+                            'வழிகாட்டிகள் & SOP & பாதுகாப்பு';
+                        ref.innerHTML = `📖 ${gLabel} · ${pageRef}`;
+                        msgDiv.appendChild(ref);
+                    }
+                } else {
+                    msgDiv.textContent = text;
+                }
+                const time = document.createElement('span');
+                time.classList.add('timestamp');
+                const now = new Date();
+                time.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                msgDiv.appendChild(time);
+                messagesContainer.appendChild(msgDiv);
+                scrollToBottom();
+            }
+
+            function showTyping() {
+                const existing = document.getElementById('typingIndicator');
+                if (existing) existing.remove();
+                const clone = typingIndicator.cloneNode(true);
+                clone.id = 'typingIndicator';
+                clone.style.display = 'flex';
+                messagesContainer.appendChild(clone);
+                scrollToBottom();
+            }
+
+            function hideTyping() {
+                const el = document.getElementById('typingIndicator');
+                if (el) el.remove();
+            }
+
+            function setMode(mode) {
+                currentMode = mode;
+                [modeAll, modeG09, modeG11, modeSop, modeFire, modeWeather, modeLightning].forEach(btn => btn.classList
+                    .remove('active'));
+                if (mode === 'all') { modeAll.classList.add('active');
+                    activeModeDisplay.textContent = '📚 அனைத்தும்'; } else if (mode === 'g09') { modeG09.classList.add(
+                        'active');
+                    activeModeDisplay.textContent = '📄 09/2026'; } else if (mode === 'g11') { modeG11.classList.add(
+                        'active');
+                    activeModeDisplay.textContent = '📄 11/2026'; } else if (mode === 'sop') { modeSop.classList.add(
+                        'active');
+                    activeModeDisplay.textContent = '📘 SOP கையேடு'; } else if (mode === 'fire') { modeFire.classList.add(
+                        'active');
+                    activeModeDisplay.textContent = '🔥 தீ பாதுகாப்பு'; } else if (mode === 'weather') { modeWeather
+                        .classList.add('active');
+                    activeModeDisplay.textContent = '🌧️ மழை/வெள்ளம்'; } else { modeLightning.classList.add('active');
+                    activeModeDisplay.textContent = '⚡ இடி-மின்னல்'; }
+            }
+
+            modeAll.addEventListener('click', () => setMode('all'));
+            modeG09.addEventListener('click', () => setMode('g09'));
+            modeG11.addEventListener('click', () => setMode('g11'));
+            modeSop.addEventListener('click', () => setMode('sop'));
+            modeFire.addEventListener('click', () => setMode('fire'));
+            modeWeather.addEventListener('click', () => setMode('weather'));
+            modeLightning.addEventListener('click', () => setMode('lightning'));
+
+            // ============================================================
+            // FIRE SAFETY KNOWLEDGE BASE
+            // ============================================================
+            function getFireResponse(question) {
+                const q = question.toLowerCase().trim();
+
+                function hasAny(...words) {
+                    return words.some(w => q.includes(w));
+                }
+
+                // Immediate Steps
+                if (hasAny('உடனடி', 'immediate', 'அலாரம்', 'வெளியேற', 'புகை', 'தீயணைப்பு', '110')) {
+                    return {
+                        text: `<b>🔥 1. தீ விபத்து ஏற்பட்டால் உடனடியாக செய்ய வேண்டியவை</b><br/><br/>
+                        <b>🔥 அலாரம் எழுப்பவும்:</b> "தீ, தீ" என்று சத்தமாக கத்தி மற்றவர்களை எச்சரியுங்கள் அல்லது தீ எச்சரிக்கை மணியை (Fire Alarm) இயக்குங்கள்.<br/><br/>
+                        <b>⛔ உடனடியாக வெளியேறவும்:</b> லிஃப்ட் (Lift) பயன்படுத்தாமல், அவசர கால படிக்கட்டுகள் (Emergency Exit) வழியாக உடனடியாக கட்டிடத்தை விட்டு வெளியே வாருங்கள்.<br/><br/>
+                        <b>✅ புகை சூழ்ந்திருந்தால் குனிந்து செல்லவும்:</b> புகை மேல்நோக்கி எழும்பும் என்பதால், தரையோடு தரையாகக் குனிந்து அல்லது தவழ்ந்து (Crawl) வெளியேற வேண்டும்.<br/><br/>
+                        <b>📞 தீயணைப்புத் துறைக்கு அழையுங்கள்:</b> பாதுகாப்பான இடத்திற்கு வந்தவுடன் உடனடியாக <b>110</b> (தீயணைப்புத் துறை அவசர எண்) என்ற எண்ணிற்கு அழையுங்கள்.<br/><br/>
+                        <b>⚠️ முக்கியம்:</b> தீ விபத்து ஏற்பட்டால் பதற்றமடைய வேண்டாம். அமைதியாகவும், விரைவாகவும் செயல்படுங்கள்.`,
+                        guideline: 'fire',
+                        page: 'Immediate Steps',
+                        section: 'உடனடி நடவடிக்கைகள்'
+                    };
+                }
+
+                // Stop, Drop, Roll
+                if (hasAny('stop', 'drop', 'roll', 'ஆடை', 'தீப்பற்றினால்', 'ஓட')) {
+                    return {
+                        text: `<b>🛑 2. ஆடையில் தீப்பற்றினால் செய்ய வேண்டியவை (Stop, Drop, and Roll)</b><br/><br/>
+                        <b>⛔ ஓடக் கூடாது (Don't Run):</b> ஓடினால் தீ வேகமாகப் பரவும். எனவே உடனடியாக ஓடுவதை நிறுத்த வேண்டும்.<br/><br/>
+                        <b>✅ தரையில் படுக்கவும் (Drop):</b> உடனடியாக தரையில் படுத்து, கைகளால் முகத்தை மூடிக்கொள்ள வேண்டும்.<br/><br/>
+                        <b>✅ உருள வேண்டும் (Roll):</b> தீ அனையும் வரை தரையில் இடமும் வலமும் உருள வேண்டும்.<br/><br/>
+                        <b>💡 நினைவில் கொள்ளுங்கள்:</b> "Stop, Drop, and Roll" - ஓடுவதை நிறுத்து, தரையில் படு, உருள்!`,
+                        guideline: 'fire',
+                        page: 'Stop Drop Roll',
+                        section: 'ஆடையில் தீ'
+                    };
+                }
+
+                // What NOT to Do
+                if (hasAny('கூடாது', 'don\'t', 'லிஃப்ட்', 'திரும்ப', 'மின்சாரத் தீ', 'தண்ணீர்')) {
+                    return {
+                        text: `<b>🚫 3. செய்யக் கூடாதவை (What NOT to Do)</b><br/><br/>
+                        <b>⛔ லிஃப்ட் பயன்படுத்தக் கூடாது:</b> மின்தடை ஏற்பட்டு லிஃப்டிற்குள் மாட்டிக்கொள்ள நேரிடும்.<br/><br/>
+                        <b>⛔ பொருட்களை எடுக்கத் திரும்பக் கூடாது:</b> மொபைல், பணம் அல்லது ஆவணங்களை எடுப்பதற்காக எரியும் கட்டிடத்திற்குள் மீண்டும் செல்லக் கூடாது.<br/><br/>
+                        <b>⛔ மின்சாரத் தீயில் தண்ணீர் ஊற்றக் கூடாது:</b> சுவிட்ச் போர்டு அல்லது மின்சாதனங்களில் தீப்பற்றினால் தண்ணீர் ஊற்றக் கூடாது (அதற்குப் பதில் உலர் வேதிப் பொடி அல்லது மணல் பயன்படுத்தலாம்).<br/><br/>
+                        <b>⚠️ எச்சரிக்கை:</b> மின்சாரத் தீயில் தண்ணீர் ஊற்றுவது மின்சாரம் பாய்ந்து உயிருக்கு ஆபத்தை விளைவிக்கும்!`,
+                        guideline: 'fire',
+                        page: 'What NOT to Do',
+                        section: 'தவிர்க்க வேண்டியவை'
+                    };
+                }
+
+                // PASS Method
+                if (hasAny('PASS', 'தீயணைப்பான்', 'extinguisher', 'pull', 'aim', 'squeeze', 'sweep')) {
+                    return {
+                        text: `<b>🧯 4. தீயணைப்பானைப் பயன்படுத்தும் PASS முறை</b><br/><br/>
+                        <b>P - PULL (இழுக்கவும்):</b> பாதுகாப்பு வளையத்தை (Safety Pin) இழுத்து உடைக்கவும்.<br/><br/>
+                        <b>A - AIM (குறி வைக்கவும்):</b> தீயின் மேல் பகுதி அல்லாமல், தீ எரிந்து கொண்டிருக்கும் <b>அடிப்பகுதியை</b> (Base of the Fire) நோக்கி குழாயைக் குறி வைக்கவும்.<br/><br/>
+                        <b>S - SQUEEZE (அழுத்தவும்):</b> வாயு/பொடி வெளியேற அதன் கைப்பிடியை (Lever) பலமாக அழுத்தவும்.<br/><br/>
+                        <b>S - SWEEP (வீசவும்):</b> தீ முற்றிலும் அணையும் வரை குழாயை இடமிருந்து வலமாகவோ, வலமிருந்து இடமாகவோ தீயின் அடிப்பகுதியில் அசைத்து வீச வேண்டும்.<br/><br/>
+                        <b>💡 நினைவில் கொள்ளுங்கள்:</b> PASS - PULL, AIM, SQUEEZE, SWEEP!`,
+                        guideline: 'fire',
+                        page: 'PASS Method',
+                        section: 'தீயணைப்பான் பயன்பாடு'
+                    };
+                }
+
+                // Fire Extinguisher Types
+                if (hasAny('வகை', 'type', 'class', 'DCP', 'CO2', 'Foam', 'Water')) {
+                    return {
+                        text: `<b>🏢 5. கட்டிடங்களில் இருக்க வேண்டிய தீத்தடுப்பு உபகரணங்கள்</b><br/><br/>
+                        <b>✅ தீயணைப்பான்கள்:</b> உலர் வேதிப் பொடி (DCP) அல்லது CO₂ சிலிண்டர்கள்<br/>
+                        <b>✅ புகை கண்டறியும் கருவிகள்:</b> கூரையில் பொருத்தப்பட்ட தானியங்கி கருவிகள்<br/>
+                        <b>✅ தீ எச்சரிக்கை மணிகள்:</b> கைமுறையாக இயக்கும் சிவப்பு பெட்டிகள்<br/>
+                        <b>✅ நீர் தெளிப்பான்கள்:</b> வெப்பம் அதிகரிக்கும் போது தானாக செயல்படும்<br/>
+                        <b>✅ தீயணைப்பு நீர் குழாய்கள்:</b> பெரிய அளவில் தண்ணீர் பாய்ச்ச உதவும்<br/>
+                        <b>✅ ஒளிரும் அவசர வழிப் பலகைகள்:</b> இருட்டில் வழிகாட்டும் பலகைகள்<br/>
+                        <b>✅ மணல் வாளிகள்:</b> சிறிய தீயை அணைக்க உதவும்<br/><br/>
+                        <b>📊 தீயின் வகைகள்:</b><br/>
+                        • <b>Class A</b> (மரம், காகிதம்) → Water / DCP<br/>
+                        • <b>Class B</b> (எண்ணெய், பெட்ரோல்) → Foam / CO₂<br/>
+                        • <b>Class C</b> (எரிவாயு) → DCP<br/>
+                        • <b>Electrical</b> (மின்சாரம்) → CO₂<br/><br/>
+                        <b>💡 பரிந்துரை:</b> ABC மாடல் (DCP) தீயணைப்பான் மரம், எண்ணெய் மற்றும் மின்சாரத் தீ மூன்றுக்கும் வேலை செய்யும்.`,
+                        guideline: 'fire',
+                        page: 'Equipment & Types',
+                        section: 'தீயணைப்பான் வகைகள்'
+                    };
+                }
+
+                // Mock Drill Rules
+                if (hasAny('mock', 'drill', 'பயிற்சி', 'அலாரம்', 'exit', 'assembly', 'roll call')) {
+                    return {
+                        text: `<b>🏢 6. தீத்தடுப்புப் பயிற்சி விதிகள் (Fire Mock Drill Rules)</b><br/><br/>
+                        <b>✅ அலாரத்தைக் கேட்டவுடன் செயல்படுதல்:</b> பதற்றமடையாமல் கையில் இருக்கும் வேலைகளை உடனடியாக நிறுத்த வேண்டும்.<br/><br/>
+                        <b>✅ அவசர வழியைப் பயன்படுத்துதல்:</b> 'Emergency Exit' என்று குறிக்கப்பட்ட பாதையைப் பயன்படுத்த வேண்டும்.<br/><br/>
+                        <b>⛔ மின்தூக்கியைத் (Lift) தவிர்க்கவும்:</b> படிக்கட்டுகளை மட்டுமே பயன்படுத்த வேண்டும்.<br/><br/>
+                        <b>✅ வரிசையாகச் செல்லுதல்:</b> ஒருவரைப் பின் தொடர்ந்து மற்றொருவர் வரிசையாக (Single File) செல்ல வேண்டும்.<br/><br/>
+                        <b>✅ கூடும் இடம் (Assembly Point):</b> முன்னரே தீர்மானிக்கப்பட்ட 'பாதுகாப்பாகக் கூடும் இடத்திற்கு' (Safe Assembly Point) செல்ல வேண்டும்.<br/><br/>
+                        <b>✅ தலைமைப் பொறுப்பாளர் ஆய்வு (Roll Call):</b> வருகைப் பதிவு (Attendance Check) சரிபார்க்கப்படும்.<br/><br/>
+                        <b>💡 குறிப்பு:</b> பயிற்சியின் போது அனைவரும் அமைதியாகவும், ஒழுங்காகவும் செயல்பட வேண்டும்.`,
+                        guideline: 'fire',
+                        page: 'Mock Drill Rules',
+                        section: 'பயிற்சி விதிகள்'
+                    };
+                }
+
+                // Default Fire
+                return {
+                    text: `<b>🔥 தீ பாதுகாப்பு - முக்கிய வழிமுறைகள்</b><br/><br/>
+                    <b>1. உடனடி நடவடிக்கைகள்:</b><br/>
+                    • அலாரம் எழுப்பவும் · வெளியேறவும் · புகையில் குனிந்து செல்லவும் · 110 அழைக்கவும்<br/><br/>
+                    <b>2. Stop, Drop, and Roll:</b><br/>
+                    • ஓடுவதை நிறுத்து · தரையில் படு · உருள்<br/><br/>
+                    <b>3. செய்யக் கூடாதவை:</b><br/>
+                    • லிஃப்ட் பயன்படுத்தக் கூடாது · பொருட்களுக்கு திரும்பக் கூடாது · மின்சாரத் தீயில் தண்ணீர் ஊற்றக் கூடாது<br/><br/>
+                    <b>4. PASS முறை:</b><br/>
+                    • PULL · AIM · SQUEEZE · SWEEP<br/><br/>
+                    <b>5. Mock Drill Rules:</b><br/>
+                    • அலாரம், Emergency Exit, Lift வேண்டாம், வரிசை, Assembly Point, Roll Call<br/><br/>
+                    <b>📞 அவசர எண்:</b> 110 - தீயணைப்புத் துறை<br/><br/>
+                    <i>குறிப்பிட்ட பாதுகாப்பு வழிமுறை பற்றி கேளுங்கள்!</i>`,
+                    guideline: 'fire',
+                    page: 'General',
+                    section: 'தீ பாதுகாப்பு'
+                };
+            }
+
+            // ============================================================
+            // WEATHER SAFETY KNOWLEDGE BASE
+            // ============================================================
+            function getWeatherResponse(question) {
+                const q = question.toLowerCase().trim();
+
+                function hasAny(...words) {
+                    return words.some(w => q.includes(w));
+                }
+
+                if (hasAny('கனமழை', 'heavy rain', 'மழை', 'rain')) {
+                    return {
+                        text: `<b>🌧️ கனமழையின் போது (During Heavy Rain)</b><br/><br/>
+                        <b>✅ வானிலை செய்திகளைக் கவனியுங்கள்:</b> வானொலி, தொலைக்காட்சி அல்லது மொபைல் செயலிகள் மூலம் அவசர எச்சரிக்கைகளைக் கவனியுங்கள்.<br/><br/>
+                        <b>✅ அத்தியாவசியப் பொருட்களைச் சேமித்து வையுங்கள்:</b> உலர் உணவு, குடிநீர், மருந்துகள், ஃப்ளாஷ்லைட், பேட்டரிகள் போன்றவற்றைத் தயாராக வைக்கவும்.<br/><br/>
+                        <b>⛔ மின்சாதனப் பயன்பாட்டைத் தவிர்க்கவும்:</b> மின்னல் தாக்கும் அபாயம் உள்ளதால் மின்சாதனங்களைப் பயன்படுத்த வேண்டாம்.<br/><br/>
+                        <b>⛔ தேவையில்லாமல் வெளியே செல்ல வேண்டாம்:</b> கனமழையின் போது பயணிப்பது ஆபத்தானது.<br/><br/>
+                        <b>✅ குடிநீரைப் பத்திரப்படுத்தி வையுங்கள்:</b> வெள்ளம் ஏற்பட்டால் குடிநீர் கிடைப்பதில் சிக்கல் ஏற்படலாம்.<br/><br/>
+                        <b>💡 குறிப்பு:</b> கனமழை எச்சரிக்கை வெளியிடப்பட்டால், உடனடியாக பாதுகாப்பான இடத்திற்குச் செல்லுங்கள்.`,
+                        guideline: 'weather',
+                        page: 'Heavy Rain',
+                        section: 'கனமழை பாதுகாப்பு'
+                    };
+                }
+
+                if (hasAny('வெள்ளம்', 'flood', 'வெள்ள', 'நீர்')) {
+                    return {
+                        text: `<b>🌊 வெள்ளத்தின் போது (During Floods)</b><br/><br/>
+                        <b>⚠️ உயரமான இடத்திற்குச் செல்லுங்கள்:</b> உடனடியாகப் பாதுகாப்பான உயரமான இடங்களுக்குச் செல்லவும்.<br/><br/>
+                        <b>⛔ வெள்ள நீரில் நடக்க வேண்டாம்:</b> 15 செ.மீ நீரும் உங்களை வீழ்த்தலாம்; தெரியாத ஆழம் மற்றும் நீரோட்டம் ஆபத்தானது.<br/><br/>
+                        <b>⛔ வெள்ள நீரில் நீந்த வேண்டாம்:</b> நீச்சல் தெரிந்தாலும், நீரோட்டம் மற்றும் குப்பைகள் காரணமாக ஆபத்து.<br/><br/>
+                        <b>⛔ வாகனங்களை இயக்க வேண்டாம்:</b> வெள்ள நீரில் வாகனம் செலுத்துவது மிகவும் ஆபத்தானது.<br/><br/>
+                        <b>⛔ மின்கம்பங்கள் அருகில் செல்லாதீர்கள்:</b> வெள்ளத்தில் மூழ்கிய மின்கம்பங்கள் மின்சாரம் பாய வாய்ப்புள்ளது.<br/><br/>
+                        <b>✅ காய்ச்சிய நீரைக் குடியுங்கள்:</b> வெள்ள நீர் மாசுபடுத்தப்பட்டிருக்கும்; எப்போதும் காய்ச்சிய அல்லது சுத்திகரிக்கப்பட்ட நீரை மட்டும் குடிக்கவும்.<br/><br/>
+                        <b>⚠️ அவசர எச்சரிக்கை:</b> வெள்ளம் ஏற்பட்டால் உடனடியாக உயரமான இடத்திற்குச் செல்லுங்கள்! உயிருக்கு ஆபத்து!`,
+                        guideline: 'weather',
+                        page: 'Flood',
+                        section: 'வெள்ள பாதுகாப்பு'
+                    };
+                }
+
+                return {
+                    text: `<b>🌧️🌊 மழை/வெள்ளம் பாதுகாப்பு - முக்கிய வழிமுறைகள்</b><br/><br/>
+                    <b>🌧️ கனமழையின் போது:</b><br/>
+                    • வானிலை செய்திகளைக் கவனியுங்கள்<br/>
+                    • அத்தியாவசியப் பொருட்களைச் சேமித்து வையுங்கள்<br/>
+                    • மின்சாதனப் பயன்பாட்டைத் தவிர்க்கவும்<br/>
+                    • தேவையில்லாமல் வெளியே செல்ல வேண்டாம்<br/>
+                    • குடிநீரைப் பத்திரப்படுத்தி வையுங்கள்<br/><br/>
+                    <b>🌊 வெள்ளத்தின் போது:</b><br/>
+                    • உயரமான இடத்திற்குச் செல்லுங்கள்<br/>
+                    • வெள்ள நீரில் நடக்க வேண்டாம்<br/>
+                    • வெள்ள நீரில் நீந்த வேண்டாம்<br/>
+                    • வாகனங்களை இயக்க வேண்டாம்<br/>
+                    • மின்கம்பங்கள் அருகில் செல்லாதீர்கள்<br/>
+                    • காய்ச்சிய நீரைக் குடியுங்கள்<br/><br/>
+                    <b>📞 அவசர எண்:</b> 117 - DMC / 1990 - சுவசெரிய ஆம்புலன்ஸ்`,
+                    guideline: 'weather',
+                    page: 'General',
+                    section: 'மழை/வெள்ளம் பாதுகாப்பு'
+                };
+            }
+
+            // ============================================================
+            // LIGHTNING SAFETY KNOWLEDGE BASE
+            // ============================================================
+            function getLightningResponse(question) {
+                const q = question.toLowerCase().trim();
+
+                function hasAny(...words) {
+                    return words.some(w => q.includes(w));
+                }
+
+                if (hasAny('வீட்டிற்குள்', 'indoor', 'மின்சாதனம்', 'குழாய் நீர்', 'தொலைபேசி', 'சுவர்கள்', 'ஜன்னல்')) {
+                    return {
+                        text: `<b>⚡ வீட்டிற்குள் இருக்கும் போது செய்ய வேண்டியவை (Indoors)</b><br/><br/>
+                        <b>✅ மின்சாதனங்களைத் துண்டிக்கவும்:</b> கணினி, TV மற்றும் பிற மின்சாதனங்களின் பிளக்குகளை உடனடியாகக் கழற்றிவிடவும்.<br/><br/>
+                        <b>⛔ தண்ணீர் குழாய்களைப் பயன்படுத்த வேண்டாம்:</b> குளிப்பது, பாத்திரங்கள் கழுவுவதைத் தவிர்க்கவும்.<br/><br/>
+                        <b>📞 தொலைபேசி பயன்பாடு:</b> லேண்ட்லைன் போன்களைப் பயன்படுத்த வேண்டாம். மொபைல் போன்களைப் பயன்படுத்தலாம்.<br/><br/>
+                        <b>⛔ சுவர்கள் மற்றும் ஜன்னல்கள்:</b> ஜன்னல்கள், வெளிக்கதவுகள் மற்றும் கான்கிரீட் சுவர்களுக்கு அருகில் நிற்பதைத் தவிர்க்கவும்.<br/><br/>
+                        <b>⚠️ முக்கியம்:</b> மின்னல் தாக்கும் போது வீட்டிற்குள் இருப்பது பாதுகாப்பானது.`,
+                        guideline: 'lightning',
+                        page: 'Indoor Safety',
+                        section: 'வீட்டிற்குள் பாதுகாப்பு'
+                    };
+                }
+
+                if (hasAny('வெளியில்', 'outdoor', 'outside', 'வெளியே', 'மரங்கள்', 'காரினுள்', 'குழு', 'crouch')) {
+                    return {
+                        text: `<b>⚡ வெளியில் இருக்கும் போது செய்ய வேண்டியவை (Outdoors)</b><br/><br/>
+                        <b>🏠 பாதுகாப்பான இடத்திற்குச் செல்லவும்:</b> நிலையான கட்டிடம் அல்லது Hard-top காரினுள் தஞ்சமடையவும்.<br/><br/>
+                        <b>⛔ மரங்களின் கீழ் நிற்க வேண்டாம்:</b> உயரமான மரங்கள், மின் கம்பங்கள் அல்லது கோபுரங்களின் கீழ் ஒருபோதும் நிற்கக் கூடாது.<br/><br/>
+                        <b>🧎 மின்னல் பாதுகாப்பு நிலை (Lightning Crouch):</b> தரையில் படுக்கக் கூடாது. கால்களை ஒன்றாகச் சேர்த்து, முழங்கால்களைக் கட்டிக்கொண்டு, தலை குனிந்து அமர வேண்டும்.<br/><br/>
+                        <b>⛔ குழுவாக இருக்கக் கூடாது:</b> அனைவரும் ஒன்றாக நிற்காமல் ஒருவருக்கொருவர் தள்ளி (தனித்தனியாக) நிற்க வேண்டும்.<br/><br/>
+                        <b>⚠️ எச்சரிக்கை:</b> மின்னல் தாக்கும் நேரத்தில் திறந்தவெளியில் இருப்பது மிகவும் அபாயகரமானது!`,
+                        guideline: 'lightning',
+                        page: 'Outdoor Safety',
+                        section: 'வெளியில் பாதுகாப்பு'
+                    };
+                }
+
+                if (hasAny('crouch', 'மின்னல் பாதுகாப்பு நிலை', 'திறந்தவெளி', 'குனிந்து அமர')) {
+                    return {
+                        text: `<b>⚡ மின்னல் பாதுகாப்பு நிலை (Lightning Crouch)</b><br/><br/>
+                        <b>🧎 எப்படி செய்வது:</b><br/>
+                        1. தரையில் <b>படுக்கக் கூடாது</b> - தரையைத் தொடும் பரப்பைக் குறைக்க வேண்டும்.<br/>
+                        2. <b>கால்களை ஒன்றாகச்</b> சேர்த்து வைக்கவும்.<br/>
+                        3. <b>முழங்கால்களைக் கட்டிக்கொண்டு</b>, தலை குனிந்து அமரவும்.<br/>
+                        4. கைகளை முழங்கால்களைச் சுற்றி வைக்கவும்.<br/>
+                        5. காதுகளை மூடிக்கொள்ளவும்.<br/><br/>
+                        <b>⚠️ எப்போது:</b> திறந்தவெளியில் மாட்டிக்கொண்டால், பாதுகாப்பான இடம் இல்லாத நிலையில்.<br/><br/>
+                        <b>✅ முக்கிய குறிப்பு:</b> இது கடைசி முயற்சி. முடிந்தவரை பாதுகாப்பான இடத்திற்குச் செல்லுங்கள்!`,
+                        guideline: 'lightning',
+                        page: 'Lightning Crouch',
+                        section: 'மின்னல் பாதுகாப்பு நிலை'
+                    };
+                }
+
+                return {
+                    text: `<b>⚡ இடி-மின்னல் பாதுகாப்பு - முக்கிய வழிமுறைகள்</b><br/><br/>
+                    <b>🏠 வீட்டிற்குள்:</b><br/>
+                    • மின்சாதனங்களைத் துண்டிக்கவும்<br/>
+                    • குழாய் நீரைத் தவிர்க்கவும்<br/>
+                    • லேண்ட்லைன் போன்களைப் பயன்படுத்த வேண்டாம்<br/>
+                    • ஜன்னல்கள் மற்றும் சுவர்களுக்கு அருகில் நிற்க வேண்டாம்<br/><br/>
+                    <b>🌳 வெளியில்:</b><br/>
+                    • பாதுகாப்பான கட்டிடம் அல்லது காரினுள் செல்லவும்<br/>
+                    • உயரமான மரங்களின் கீழ் நிற்க வேண்டாம்<br/>
+                    • Lightning Crouch பின்பற்றவும்<br/>
+                    • குழுவாக இருக்க வேண்டாம்<br/><br/>
+                    <b>📞 அவசர எண்:</b> 117 - DMC`,
+                    guideline: 'lightning',
+                    page: 'General',
+                    section: 'இடி-மின்னல் பாதுகாப்பு'
+                };
+            }
+
+            // ============================================================
+            // SOP KNOWLEDGE BASE (Simplified)
+            // ============================================================
+            function getSOPResponse(question) {
+                const q = question.toLowerCase().trim();
+
+                function hasAny(...words) {
+                    return words.some(w => q.includes(w));
+                }
+
+                if (hasAny('அறிமுகம்', 'நோக்கம்')) {
+                    return { text: `<b>📘 1. அறிமுகமும் நோக்கமும்</b><br/><br/><b>நோக்கம்:</b> பிரதேச செயலகப் பிரிவுக்குள் ஏற்படும் அனர்த்தங்களின் போது, மக்களுக்கான நிவாரணங்களை முறைகேடுகள் மற்றும் காலதாமதமின்றி வழங்குவதற்கான வழிகாட்டல்.<br/><br/><b>பணிப்பரப்பு:</b> உணவு வழங்குதல், சேதமடைந்த வீடுகளுக்கான இழப்பீடு, முகாம் நிருவாகம் மற்றும் தரவுப் பதிவேற்றம்.`,
+                        guideline: 'sop', page: '1', section: 'அறிமுகம்' };
+                }
+                if (hasAny('முந்தைய', 'pre-disaster')) {
+                    return { text: `<b>📘 2. அவசரநிலைக்கு முந்தைய பணிகள்</b><br/><br/><b>அனர்த்த அவசரத் திட்டம்:</b> கிராம உத்தியோகத்தர் பிரிவுகளின் கடந்தகால அனர்த்தத் தரவுகளை அடிப்படையாகக் கொண்டு திட்டமிடுதல்.<br/><br/><b>பாதுகாப்பு மையங்களை அடையாளம் காணல்:</b> பாடசாலைகள், சமூக மண்டபங்கள் போன்றவற்றை முகாம்களாக தயார் நிலையில் வைத்தல்.<br/><br/><b>விழிப்புணர்வுத் திட்டங்கள்:</b> கிராம மட்டத்தில் அனர்த்த அபாயங்களைக் குறைப்பதற்கான விழிப்புணர்வுக் கூட்டங்களை நடத்துதல்.`,
+                        guideline: 'sop', page: '2', section: 'முந்தைய பணிகள்' };
+                }
+                if (hasAny('அவசரநிலை', 'emergency')) {
+                    return { text: `<b>📘 3. அவசரநிலைக்காலப் பணிகள்</b><br/><br/><b>உடனடி உணவு விநியோகம்:</b> பாதிக்கப்பட்ட மக்களுக்கு சமைத்த உணவு அல்லது உலர் உணவுப் பொருட்களை விநியோகித்தல்.<br/><br/><b>டிஜிட்டல் தரவுப் பதிவு:</b> பாதிக்கப்பட்ட குடும்பங்களின் விபரங்களை தேசிய அனர்த்த தரவு வங்கியில் பதிவேற்றுதல்.<br/><br/><b>முகாம் நிருவாகம்:</b> முகாம்களில் தேவையான நீர், சுகாதாரம் மற்றும் அத்தியாவசியப் பொருட்களை வழங்குவதை ஒருங்கிணைத்தல்.`,
+                        guideline: 'sop', page: '3', section: 'அவசரக்கால பணிகள்' };
+                }
+                if (hasAny('பிந்தைய', 'post-disaster')) {
+                    return { text: `<b>📘 4. அனர்த்தத்திற்குப் பிந்தைய பணிகள்</b><br/><br/><b>சேத விபர மதிப்பீடு:</b> சேதமடைந்த வீடுகள் மற்றும் வாழ்வாதாரச் சொத்துக்களின் விபரங்களைத் திரட்டுதல்.<br/><br/><b>இழப்பீடு வழங்குதல்:</b> காயம்/உயிரிழப்பு, சேதமடைந்த வீடுகள் மற்றும் வீட்டு உபயோகப் பொருட்களுக்கான நட்டஈடுகளை விரைவாக வழங்குதல்.<br/><br/><b>பாதுகாப்பான வீடமைப்பு:</b> அதிக அபாய வலயங்களில் வாழும் மக்களை பாதுகாப்பான இடங்களுக்கு மீள்குடியேற்றுதல்.`,
+                        guideline: 'sop', page: '4', section: 'பிந்தைய பணிகள்' };
+                }
+                if (hasAny('ஆவண', 'documentation')) {
+                    return { text: `<b>📘 5. ஆவணப் பராமரிப்பு</b><br/><br/><b>பதிவேடுகள்:</b> 1. அனர்த்தப் பதிவேடு 2. நிவாரணப் பொருட்கள் விநியோகப் பதிவேடு 3. நிதிப் பதிவேடு<br/><br/><b>அறிக்கை:</b> வாராந்த/மாதாந்த அனர்த்த நிலைமை அறிக்கைகளை மாவட்ட செயலகத்திற்கும் தலைமை அலுவலகத்திற்கும் சமர்ப்பித்தல்.`,
+                        guideline: 'sop', page: '5', section: 'ஆவணப் பராமரிப்பு' };
+                }
+                if (hasAny('ஒருங்கிணைப்பு', 'coordination')) {
+                    return { text: `<b>📘 6. ஒருங்கிணைப்பும் தொடர்பாடலும்</b><br/><br/><b>உள்வாரி:</b> பிரதேச செயலாளர், கணக்காளர், திட்டமிடல் பணிப்பாளர் மற்றும் கிராம உத்தியோகத்தர்களுடன் இணைந்த செயல்பாடுகள்.<br/><br/><b>வெளிவாரி:</b> முப்படைகள், பொலிஸார், சுகாதாரத் திணைக்களம் மற்றும் அரச சார்பற்ற நிறுவனங்களுடன் ஒருங்கிணைப்பு.`,
+                        guideline: 'sop', page: '6', section: 'ஒருங்கிணைப்பு' };
+                }
+                return { text: `<b>📘 SOP கையேடு - 6 பிரிவுகள்</b><br/><br/>1. அறிமுகம்<br/>2. முந்தைய பணிகள்<br/>3. அவசரக்கால பணிகள்<br/>4. பிந்தைய பணிகள்<br/>5. ஆவணப் பராமரிப்பு<br/>6. ஒருங்கிணைப்பு`,
+                    guideline: 'sop', page: '1-6', section: 'SOP' };
+            }
+
+            // ============================================================
+            // GUIDELINE 09/2026 & 11/2026 (Simplified)
+            // ============================================================
+            function getGuideline09Response(q) {
+                if (q.includes('25,000') || q.includes('வீடு சுத்தம்')) {
+                    return { text: `<b>🧹 05. வீடு சுத்தம் - ரூ.25,000</b><br/><br/>• 21.11.2025 முதல் முழு/பகுதி சேதம்<br/>• காணி உரிமை கருத்தில் கொள்ளாது<br/>• சேத மதிப்பீடு இன்றி ஒரு வீட்டிற்கு ரூ.25,000<br/>• விண்ணப்பம்: NDRSC 3.6 · இணைப்பு 01-03`,
+                        guideline: 'g09', page: '4-5', section: '05. வீடு சுத்தம்' };
+                }
+                if (q.includes('50,000') || q.includes('சமையலறை')) {
+                    return { text: `<b>🍳 06. சமையலறை & உபகரணங்கள் - ரூ.50,000</b><br/><br/>• முழு/பகுதி சேதம்<br/>• ஒரு வீட்டிற்கு ரூ.50,000<br/>• பல குடும்பங்கள் - சமமாகப் பகிர்ந்தளிக்கப்படும்<br/>• விண்ணப்பம்: NDRSC 3.7 · இணைப்பு 04-06`,
+                        guideline: 'g09', page: '5-7', section: '06. சமையலறை' };
+                }
+                if (q.includes('வீட்டுச் சேதம்') || q.includes('65%')) {
+                    return { text: `<b>🏗️ 11. வீட்டுச் சேதங்கள்</b><br/><br/>• முழு சேதம்: 65%+, NBRO பரிந்துரை<br/>• மதிப்பீடு இன்றி: ரூ.500,000 (300K+200K)<br/>• மதிப்பீட்டின் பின்: அதிகபட்சம் ரூ.2,500,000<br/>• NBRO உயர் அபாயம்: ரூ.5,000,000<br/>• ஆவணங்கள்: NDRSC 3, 04 நிழற்படங்கள், NBRO அறிக்கை`,
+                        guideline: 'g09', page: '13-28', section: '11. வீட்டுச் சேதம்' };
+                }
+                return null;
+            }
+
+            function getGuideline11Response(q) {
+                if (q.includes('முழு') || q.includes('5.0')) {
+                    return { text: `<b>💰 11/2026 - முழு சேதம் (ரூ.5.0M)</b><br/><br/>• 5.1.1: 10 பேர்ச், 650 sq.ft, இணைப்பு 01-03<br/>• 3 தவணைகள்: 20L+15L+15L (இணைப்பு 04)<br/>• இணைப்பு 05 உடன்படிக்கை · 7 மாத கால வரம்பு<br/>• 8 நிபந்தனைகள் (I-VIII)`,
+                        guideline: 'g11', page: '6-7', section: 'முழு சேதம்' };
+                }
+                if (q.includes('பகுதி') || q.includes('500,000')) {
+                    return { text: `<b>🔧 11/2026 - பகுதி சேதம் (ரூ.500,000)</b><br/><br/>• 5.2.1: மதிப்பீடு & புனரமைப்பு<br/>• 5.2.2: நேரடி வழங்கல் இல்லை - பிரதேச செயலாளர் மேற்பார்வை<br/>• 5.2.3: ஓய்வு, 5+ ஆண்டுகள், பிள்ளைகள்`,
+                        guideline: 'g11', page: '12', section: 'பகுதி சேதம்' };
+                }
+                return null;
+            }
+
+            // ============================================================
+            // MAIN PROCESSOR
+            // ============================================================
+            function handleUserMessage(text) {
+                if (!text || text.trim() === '') return;
+                addMessage(text, 'user');
+                userInput.value = '';
+                userInput.focus();
+                showTyping();
+
+                const delay = 300 + Math.random() * 600;
+                setTimeout(() => {
+                    let result = null;
+
+                    // Mode-specific
+                    if (currentMode === 'fire') {
+                        result = getFireResponse(text);
+                    } else if (currentMode === 'weather') {
+                        result = getWeatherResponse(text);
+                    } else if (currentMode === 'lightning') {
+                        result = getLightningResponse(text);
+                    } else if (currentMode === 'sop') {
+                        result = getSOPResponse(text);
+                    } else if (currentMode === 'g09') {
+                        result = getGuideline09Response(text);
+                        if (!result) result = { text: '⚠️ வழிகாட்டி 09/2026 பற்றி கேளுங்கள்.', guideline: 'g09' };
+                    } else if (currentMode === 'g11') {
+                        result = getGuideline11Response(text);
+                        if (!result) result = { text: '⚠️ வழிகாட்டி 11/2026 பற்றி கேளுங்கள்.', guideline: 'g11' };
+                    }
+                    // All mode - smart detection
+                    else {
+                        if (text.includes('தீ') || text.includes('fire') || text.includes('PASS') || text.includes('110') ||
+                            text.includes('Stop') || text.includes('Drop') || text.includes('Roll') ||
+                            text.includes('mock') || text.includes('drill')) {
+                            result = getFireResponse(text);
+                        } else if (text.includes('மழை') || text.includes('வெள்ளம்') || text.includes('flood') || text
+                            .includes('rain') || text.includes('கனமழை') || text.includes('வெள்ள')) {
+                            result = getWeatherResponse(text);
+                        } else if (text.includes('இடி') || text.includes('மின்னல்') || text.includes('lightning') ||
+                            text.includes('crouch')) {
+                            result = getLightningResponse(text);
+                        } else if (text.includes('SOP') || text.includes('கையேடு') || text.includes('அறிமுகம்') ||
+                            text.includes('நோக்கம்')) {
+                            result = getSOPResponse(text);
+                        } else {
+                            result = getGuideline09Response(text);
+                            if (!result) {
+                                result = getGuideline11Response(text);
+                                if (!result) {
+                                    result = {
+                                        text: `<b>📚 NDRSC AI - முழுமையான உதவி</b><br/><br/>
+                                        🔥 தீ · 🌧️ மழை/வெள்ளம் · ⚡ இடி-மின்னல்<br/>
+                                        📄 09/2026 · 11/2026 · 📘 SOP<br/><br/>
+                                        <i>உங்கள் கேள்வியை தமிழில் கேளுங்கள்!</i>`,
+                                        guideline: 'all',
+                                        page: '54+SOP+Fire+Weather+Lightning',
+                                        section: 'முழுமையான உதவி'
+                                    };
+                                }
+                            }
+                        }
+                    }
+
+                    hideTyping();
+                    if (result) {
+                        addMessage(result.text, 'bot', result.guideline || 'all', result.page || '',
+                        result.section || '');
+                    }
+                }, delay);
+            }
+
+            // ============================================================
+            // EVENT LISTENERS
+            // ============================================================
+            sendBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                handleUserMessage(userInput.value.trim());
+            });
+
+            userInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleUserMessage(userInput.value.trim());
+                }
+            });
+
+            suggestionChips.forEach(chip => {
+                chip.addEventListener('click', function() {
+                    const question = this.getAttribute('data-question');
+                    if (question) {
+                        userInput.value = question;
+                        handleUserMessage(question);
+                    }
+                });
+            });
+
+            window.addEventListener('load', function() {
+                userInput.focus();
+                scrollToBottom();
+            });
+        })();
+    </script>
+
+</body>
+</html>
