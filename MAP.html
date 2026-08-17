@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GN Divisions Photoshop Dashboard (J/157 - J/181)</title>
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { margin: 0; padding: 20px; background: #f0f2f5; }
+        
+        .header { max-width: 1300px; margin: 0 auto 20px auto; display: flex; justify-content: space-between; align-items: center; }
+        .header h1 { margin: 0; color: #333; font-size: 24px; }
+        .header h3 { margin: 0; color: #666; font-weight: normal; }
+        
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; max-width: 1300px; margin: 20px auto; }
+        
+        .card { background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); overflow: hidden; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.15); }
+        .card-header { padding: 12px 15px; background: #2c3e50; color: white; display: flex; justify-content: space-between; align-items: center; }
+        .card-header h3 { margin: 0; font-size: 16px; }
+        .card-body { height: 180px; background: #e6e6e6; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        .card-body img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .card-footer { padding: 10px; background: #f8f9fa; border-top: 1px solid #eee; display: flex; justify-content: flex-end; gap: 8px; }
+        .card-footer button { padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; color: white; }
+        .btn-edit { background: #2196F3; }
+        .btn-edit:hover { background: #1976d2; }
+        .btn-download { background: #4CAF50; }
+        .btn-download:hover { background: #388E3C; }
+
+        /* Photoshop Editor Modal */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; justify-content: center; align-items: center; }
+        .modal.active { display: flex; }
+        .modal-content { background: #2d2d2d; width: 95%; max-width: 1300px; height: 90%; border-radius: 10px; display: flex; flex-direction: column; overflow: hidden; position: relative; }
+        
+        .modal-header { padding: 15px; background: #333; border-bottom: 2px solid #444; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+        .modal-header h2 { margin: 0; color: white; font-size: 18px; }
+        .modal-header .close-btn { background: #b71c1c; border: none; color: white; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .modal-header .close-btn:hover { background: #d32f2f; }
+        
+        /* Photoshop Toolbar */
+        .ps-toolbar { padding: 10px; background: #3a3a3a; border-bottom: 2px solid #222; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; flex-shrink: 0; }
+        .ps-toolbar button, .ps-toolbar input { padding: 6px 12px; border: none; border-radius: 4px; background: #555; color: white; cursor: pointer; font-size: 13px; }
+        .ps-toolbar button:hover { background: #777; }
+        .ps-toolbar button.active { background: #2196F3; }
+        .ps-toolbar input[type="color"] { padding: 0; width: 30px; height: 30px; border-radius: 50%; border: 1px solid white; }
+        .ps-toolbar input[type="range"] { width: 80px; background: #555; }
+        .ps-toolbar .sep { width: 1px; height: 25px; background: #666; margin: 0 5px; }
+        .ps-toolbar .label { color: #aaa; font-size: 12px; }
+        
+        .ps-workspace { flex: 1; display: flex; overflow: hidden; }
+        .ps-canvas-container { flex: 1; overflow: hidden; background: #1a1a1a; position: relative; display: flex; justify-content: center; align-items: center; }
+        .ps-canvas-container canvas { background: white; box-shadow: 0 4px 20px rgba(0,0,0,0.5); cursor: crosshair; max-width: 100%; max-height: 100%; }
+        
+        .ps-layers-panel { width: 220px; background: #2d2d2d; border-left: 2px solid #444; display: flex; flex-direction: column; overflow-y: auto; flex-shrink: 0; }
+        .ps-layers-panel h4 { color: #aaa; margin: 10px 15px 5px 15px; font-size: 13px; text-transform: uppercase; }
+        .ps-layers-list { flex: 1; padding: 5px 15px; overflow-y: auto; }
+        .layer-item { display: flex; align-items: center; gap: 8px; padding: 6px 8px; margin-bottom: 4px; background: #444; border-radius: 4px; color: white; font-size: 12px; cursor: pointer; border: 1px solid transparent; }
+        .layer-item.active { border-color: #2196F3; background: #555; }
+        .layer-item .eye { background: none; border: none; color: #aaa; cursor: pointer; }
+        .layer-item .eye:hover { color: white; }
+        
+        .ps-add-layer { margin: 10px 15px; padding: 6px; background: #4CAF50; border: none; color: white; border-radius: 4px; cursor: pointer; }
+        .ps-add-layer:hover { background: #388E3C; }
+        .ps-download-btn { margin: 10px 15px; padding: 6px; background: #2196F3; border: none; color: white; border-radius: 4px; cursor: pointer; text-align: center; }
+        
+        @media (max-width: 600px) {
+            .grid-container { grid-template-columns: 1fr; }
+            .ps-layers-panel { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>🗺️ GN Divisions Dashboard</h1>
+        <h3>Click "Edit" to open Photoshop-style editor (CORS Fixed)</h3>
+    </div>
+
+    <div id="gridContainer" class="grid-container">
+        <!-- Cards generated here -->
+    </div>
+
+    <!-- Photoshop Editor Modal -->
+    <div id="psModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Editing: J/...</h2>
+                <button class="close-btn" onclick="closeEditor()">✕ Close</button>
+            </div>
+            
+            <div class="ps-toolbar">
+                <button id="psBrush" class="active">🖌️ Brush</button>
+                <button id="psEraser">🧹 Eraser</button>
+                <button id="psFill">⬜ Fill</button>
+                <button id="psMove">📦 Move</button>
+                <div class="sep"></div>
+                <input type="color" id="psColor" value="#ff0000">
+                <input type="range" id="psSize" min="1" max="50" value="5">
+                <span class="label">Size</span>
+                <div class="sep"></div>
+                <button id="psUndo">↩ Undo</button>
+                <button id="psRedo">↪ Redo</button>
+            </div>
+            
+            <div class="ps-workspace">
+                <div class="ps-canvas-container" id="psContainer">
+                    <canvas id="psCanvas"></canvas>
+                </div>
+                <div class="ps-layers-panel">
+                    <h4>Layers</h4>
+                    <button class="ps-add-layer" onclick="addLayer()">+ Add Layer</button>
+                    <div class="ps-layers-list" id="psLayersList"></div>
+                    <button class="ps-download-btn" onclick="downloadEditedMap()">⬇ Save Edited JPG</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. GITHUB CONFIG ---
+        const BASE_URL = "https://balarubanndrsc.github.io/ndrsc-valikamam-relief/";
+        const divisionIds = [];
+        for(let i = 157; i <= 181; i++) divisionIds.push(i);
+
+        // --- 2. GENERATE DASHBOARD CARDS ---
+        const grid = document.getElementById('gridContainer');
+        
+        divisionIds.forEach(num => {
+            const divId = `J/${num}`;
+            const imgUrl = BASE_URL + `${num}N.jpg`;
+            
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <div class="card-header">
+                    <h3>${divId}</h3>
+                </div>
+                <div class="card-body">
+                    <img src="${imgUrl}" onerror="this.src='data:image/svg+xml;...'">
+                </div>
+                <div class="card-footer">
+                    <button class="btn-edit" onclick="openEditor('${divId}', '${imgUrl}')">✏️ Edit</button>
+                    <button class="btn-download" onclick="downloadRaw('${imgUrl}', '${divId}')">⬇️ Download</button>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+
+        // --- 3. PHOTOSHOP EDITOR STATE ---
+        const canvas = document.getElementById('psCanvas');
+        const ctx = canvas.getContext('2d');
+        const container = document.getElementById('psContainer');
+        
+        let currentTool = 'brush';
+        let isDrawing = false;
+        let lastX = 0, lastY = 0;
+        let currentMapUrl = '';
+        let currentMapId = '';
+        
+        // Layer System
+        let layers = [];
+        let activeLayerId = 0;
+        let layerIdCounter = 0;
+        let baseImage = null;
+        
+        // History
+        let history = [];
+        let historyIndex = -1;
+        
+        // Move Tool State
+        let isDraggingMove = false;
+        let moveStartX, moveStartY;
+
+        // --- 4. OPEN EDITOR (WITH CORS PROXY FIX) ---
+        function openEditor(id, url) {
+            document.getElementById('modalTitle').innerText = `Editing: ${id}`;
+            document.getElementById('psModal').classList.add('active');
+            currentMapId = id;
+            currentMapUrl = url;
+            
+            // Reset state
+            layers = [];
+            activeLayerId = 0;
+            layerIdCounter = 0;
+            history = [];
+            historyIndex = -1;
+            baseImage = null;
+            isDrawing = false;
+            
+            // FIX: Use a CORS Proxy to bypass the security error
+            const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(url)}`;
+            
+            const img = new Image();
+            img.crossOrigin = "Anonymous";
+            img.onload = () => {
+                canvas.width = img.width;
+                canvas.height = img.height;
+                baseImage = img;
+                addLayer('Base Map');
+                addLayer('Drawings');
+                renderLayers();
+                saveHistory();
+            };
+            img.onerror = () => {
+                alert("Failed to load the map. If this keeps happening, you must host the images on a server that supports CORS, or download the maps locally.");
+            };
+            img.src = proxyUrl;
+        }
+
+        function closeEditor() {
+            document.getElementById('psModal').classList.remove('active');
+        }
+
+        // --- 5. LAYER SYSTEM ---
+        function addLayer(name = null) {
+            const layer = {
+                id: layerIdCounter++,
+                name: name || `Layer ${layers.length}`,
+                visible: true,
+                items: []
+            };
+            layers.push(layer);
+            activeLayerId = layer.id;
+            renderLayerUI();
+            renderLayers();
+            return layer;
+        }
+
+        function getActiveLayer() {
+            return layers.find(l => l.id === activeLayerId);
+        }
+
+        function toggleLayer(id) {
+            const l = layers.find(l => l.id === id);
+            if(l) { l.visible = !l.visible; renderLayerUI(); renderLayers(); }
+        }
+
+        function renderLayerUI() {
+            const list = document.getElementById('psLayersList');
+            list.innerHTML = '';
+            [...layers].reverse().forEach(layer => {
+                const div = document.createElement('div');
+                div.className = 'layer-item' + (layer.id === activeLayerId ? ' active' : '');
+                div.innerHTML = `
+                    <button class="eye" onclick="toggleLayer(${layer.id})">${layer.visible ? '👁️' : '🚫'}</button>
+                    <span style="flex:1;">${layer.name}</span>
+                `;
+                div.onclick = (e) => {
+                    if(e.target.tagName !== 'BUTTON') {
+                        activeLayerId = layer.id;
+                        renderLayerUI();
+                    }
+                };
+                list.appendChild(div);
+            });
+        }
+
+        // --- 6. RENDER CANVAS ---
+        function renderLayers() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            if(baseImage && layers.length === 0) {
+                ctx.drawImage(baseImage, 0, 0);
+                return;
+            }
+            
+            layers.forEach(layer => {
+                if(!layer.visible) return;
+                layer.items.forEach(item => {
+                    if(item.type === 'image') {
+                        ctx.drawImage(item.data, 0, 0);
+                    } else if(item.type === 'line') {
+                        ctx.beginPath();
+                        ctx.moveTo(item.x1, item.y1);
+                        ctx.lineTo(item.x2, item.y2);
+                        ctx.strokeStyle = item.color;
+                        ctx.lineWidth = item.width;
+                        ctx.lineCap = 'round';
+                        ctx.stroke();
+                    } else if(item.type === 'rect') {
+                        ctx.fillStyle = item.color;
+                        ctx.fillRect(item.x, item.y, item.w, item.h);
+                    }
+                });
+            });
+        }
+
+        // --- 7. HISTORY ---
+        function saveHistory() {
+            history = history.slice(0, historyIndex + 1);
+            const state = JSON.stringify(layers);
+            history.push(state);
+            historyIndex = history.length - 1;
+            updateButtons();
+        }
+        function undo() {
+            if(historyIndex > 0) {
+                historyIndex--;
+                layers = JSON.parse(history[historyIndex]);
+                renderLayers();
+                renderLayerUI();
+                updateButtons();
+            }
+        }
+        function redo() {
+            if(historyIndex < history.length - 1) {
+                historyIndex++;
+                layers = JSON.parse(history[historyIndex]);
+                renderLayers();
+                renderLayerUI();
+                updateButtons();
+            }
+        }
+        function updateButtons() {
+            document.getElementById('psUndo').disabled = historyIndex <= 0;
+            document.getElementById('psRedo').disabled = historyIndex >= history.length - 1;
+        }
+
+        // --- 8. DRAWING LOGIC ---
+        function getPos(e) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: e.clientX - rect.left,
+                y: e.clientY - rect.top
+            };
+        }
+
+        canvas.addEventListener('mousedown', (e) => {
+            if(e.button !== 0) return;
+            const pos = getPos(e);
+            if(currentTool === 'brush') {
+                isDrawing = true;
+                lastX = pos.x; lastY = pos.y;
+            } else if(currentTool === 'move') {
+                isDraggingMove = true;
+                moveStartX = pos.x; moveStartY = pos.y;
+            } else if(currentTool === 'fill') {
+                const layer = getActiveLayer();
+                if(!layer) return;
+                const color = document.getElementById('psColor').value;
+                layer.items.push({ type: 'rect', x: -5000, y: -5000, w: canvas.width+10000, h: canvas.height+10000, color: color });
+                renderLayers();
+                saveHistory();
+            }
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            const pos = getPos(e);
+            if(currentTool === 'brush' && isDrawing) {
+                const color = document.getElementById('psColor').value;
+                const size = parseInt(document.getElementById('psSize').value);
+                
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(pos.x, pos.y);
+                ctx.strokeStyle = color;
+                ctx.lineWidth = size;
+                ctx.lineCap = 'round';
+                ctx.stroke();
+                
+                lastX = pos.x; lastY = pos.y;
+            } else if(currentTool === 'move' && isDraggingMove) {
+                const dx = pos.x - moveStartX;
+                const dy = pos.y - moveStartY;
+                const layer = getActiveLayer();
+                if(layer) {
+                    layer.items.forEach(item => {
+                        if(item.x1 !== undefined) { item.x1 += dx; item.y1 += dy; }
+                        if(item.x2 !== undefined) { item.x2 += dx; item.y2 += dy; }
+                    });
+                    moveStartX = pos.x; moveStartY = pos.y;
+                    renderLayers();
+                }
+            }
+        });
+
+        canvas.addEventListener('mouseup', (e) => {
+            if(currentTool === 'brush' && isDrawing) {
+                isDrawing = false;
+                const layer = getActiveLayer();
+                if(!layer) return;
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                layer.items.push({ type: 'image', data: imageData });
+                saveHistory();
+            } else if(currentTool === 'move' && isDraggingMove) {
+                isDraggingMove = false;
+                saveHistory();
+            }
+        });
+
+        // --- 9. TOOLBAR UI ---
+        document.getElementById('psBrush').onclick = () => { currentTool = 'brush'; updateActiveTool(); };
+        document.getElementById('psEraser').onclick = () => { currentTool = 'eraser'; updateActiveTool(); };
+        document.getElementById('psFill').onclick = () => { currentTool = 'fill'; updateActiveTool(); };
+        document.getElementById('psMove').onclick = () => { currentTool = 'move'; updateActiveTool(); };
+        
+        function updateActiveTool() {
+            document.querySelectorAll('.ps-toolbar button').forEach(b => b.classList.remove('active'));
+            if(currentTool === 'brush') document.getElementById('psBrush').classList.add('active');
+            if(currentTool === 'eraser') document.getElementById('psEraser').classList.add('active');
+            if(currentTool === 'fill') document.getElementById('psFill').classList.add('active');
+            if(currentTool === 'move') document.getElementById('psMove').classList.add('active');
+        }
+
+        document.getElementById('psUndo').onclick = undo;
+        document.getElementById('psRedo').onclick = redo;
+
+        // --- 10. DOWNLOAD FUNCTIONS ---
+        function downloadEditedMap() {
+            const link = document.createElement('a');
+            link.download = `${currentMapId}_edited.jpg`;
+            link.href = canvas.toDataURL('image/jpeg', 0.95);
+            link.click();
+        }
+
+        function downloadRaw(url, id) {
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `${id.replace('/', '')}.jpg`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
