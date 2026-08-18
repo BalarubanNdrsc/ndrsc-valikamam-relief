@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GN Divisions - Built-in Editor + Photopea</title>
+    <title>GN Divisions - Built-in Editor + Photopea (Fixed Cursor)</title>
     <style>
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
         body { margin: 0; padding: 20px; background: #f0f2f5; }
@@ -58,7 +58,7 @@
 <body>
 
     <div class="header">
-        <h1>🗺️ GN Divisions Editor + Photopea</h1>
+        <h1>🗺️ GN Divisions Editor + Photopea (Cursor Fixed)</h1>
     </div>
 
     <div class="grid-container" id="gridContainer"></div>
@@ -304,9 +304,17 @@
             document.getElementById('psRedo').disabled = historyIndex >= history.length - 1;
         }
 
+        // --- FIX: PROPER COORDINATE SYSTEM ---
         function getPos(e) {
             const rect = canvas.getBoundingClientRect();
-            return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+            // Calculate the actual scale of the canvas within its container
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            
+            return {
+                x: (e.clientX - rect.left) * scaleX,
+                y: (e.clientY - rect.top) * scaleY
+            };
         }
 
         canvas.addEventListener('mousedown', (e) => {
@@ -432,8 +440,8 @@
 
         // --- 4. PHOTOPEA LOGIC ---
         function openInPhotopea(imageUrl) {
-            // Use window.open directly, this will only trigger when the button is explicitly clicked
-            const photopeaUrl = `https://www.photopea.com/#${encodeURIComponent(imageUrl)}`;
+            const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(imageUrl)}`;
+            const photopeaUrl = `https://www.photopea.com/#${encodeURIComponent(proxyUrl)}`;
             window.open(photopeaUrl, '_blank');
         }
 
